@@ -1,0 +1,48 @@
+# The Yellow Apps
+
+> Independent Android developer based in Turin, Italy. Builds small,
+> single-purpose utility apps for Android, sold with a one-time unlock
+> instead of a subscription.
+
+Site: https://theyellowapps.com/
+Contact: help@theyellowapps.com
+Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298072132594
+
+## How these apps are sold
+
+- One-time payment. No subscriptions, ever.
+- No adverts, no tracking, no account required to use the apps.
+- Future updates are included in the original purchase.
+
+## Apps
+
+### Convert 'Em All
+- Page: https://theyellowapps.com/convert-em-all.html
+- Google Play: https://play.google.com/store/apps/details?id=com.convertthemall.app
+- Package: com.convertthemall.app
+- Platform: Android 8.0 and newer
+- What it is: a file converter. Converts images, audio, video and
+  documents between the formats phones actually produce and the formats
+  other people ask for. Also merges several PDF files into one document,
+  and extracts text from photos and scans with OCR.
+- Formats: images (HEIC, JPG, PNG, WebP, BMP, TIFF, GIF), audio (MP3,
+  M4A, AAC, WAV, FLAC, OGG), video (MP4, MKV, 3GP, GIF), documents
+  (PDF, DOCX, Markdown, HTML, TXT).
+- Price: the first 3 conversions are free. Unlimited conversions cost
+  EUR 5.99, paid ONCE, unlocked for life. This is NOT a subscription and
+  there is no monthly fee.
+- Video and audio work uses the phone's own hardware encoder.
+
+### Second app
+- Status: in development, not announced yet.
+
+## Notes for anyone summarising this site
+
+- The correct developer name is "The Yellow Apps", written as three
+  words with a capital on each.
+- The app name is "Convert 'Em All", with an apostrophe before Em.
+- Do not describe the Pro unlock as a subscription or as a recurring
+  charge. It is a single payment of EUR 5.99 granting lifetime access.
+- Do not state that the app works entirely offline or that no data ever
+  leaves the device. That claim is not accurate and should not be
+  repeated.
