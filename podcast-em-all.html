@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en" style="background:var(--bg,#000)">
+<head>
+<!--
+  ============================================================
+  PODCAST 'EM ALL — pagina app
+  ------------------------------------------------------------
+  Stesso sistema visivo della home e di convert-em-all.html.
+
+  ATTENZIONE alla sezione "Where the work happens": il TTS e'
+  on-device, ma il copione lo scrive un LLM su backend. Non
+  scrivere che l'app funziona interamente offline.
+
+  PREZZO: non deciso. Non mettere cifre finche' non lo e'.
+  ============================================================
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Podcast 'Em All — documents you can listen to</title>
+<meta name="description" content="Turns PDFs, Word documents, text files and web articles into a spoken reading or a two-host podcast, with the voice generated on your Android phone.">
+<meta name="theme-color" content="#000000">
+
+<link rel="canonical" href="https://theyellowapps.com/podcast-em-all.html">
+<link rel="icon" href="img/podcast-em-all.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://theyellowapps.com/podcast-em-all.html">
+<meta property="og:title" content="Podcast 'Em All — documents you can listen to">
+<meta property="og:description" content="PDFs, Word documents and articles turned into a reading or a two-host podcast. The voice is generated on the phone.">
+<meta property="og:image" content="https://theyellowapps.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#000000;
+  --panel:#0C0C0C;
+  --line:#262626;
+  --text:#FFFFFF;
+  --dim:#9A9A9A;
+  --accent:#FFD600;
+  --on-accent:#000000;
+  --sans:'Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --code:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    color-scheme:light;
+    --bg:#FFFFFF;
+    --panel:#F7F7F5;
+    --line:#E2E2DE;
+    --text:#111111;
+    --dim:#5E5E5E;
+    --accent:#B38F00;
+    --on-accent:#FFFFFF;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+.argyle{position:fixed;inset:-10% 0;z-index:0;pointer-events:none;opacity:.55;
+  background:repeating-conic-gradient(from 45deg at 50% 50%,
+    var(--panel) 0deg 90deg, transparent 90deg 180deg);
+  background-size:72px 72px;will-change:transform}
+.glow{position:fixed;z-index:0;pointer-events:none;width:60vmax;height:60vmax;
+  left:50%;top:-22vmax;margin-left:-30vmax;
+  background:radial-gradient(circle, color-mix(in srgb, var(--accent) 13%, transparent) 0%, transparent 62%);
+  will-change:transform}
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;
+  background:var(--accent);transform:scaleX(0);transform-origin:0 50%}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
+.sec{padding:clamp(66px,10vw,118px) 0;position:relative;z-index:2}
+.eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent)}
+h2{font-size:clamp(27px,4.4vw,45px);font-weight:900;letter-spacing:-.035em;line-height:1.07;margin-top:14px}
+.lede{color:var(--dim);max-width:62ch;margin-top:16px;font-size:clamp(16px,1.7vw,18.5px)}
+.small{color:var(--dim);font-size:14.5px}
+
+.bar{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+  background:color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom:1px solid transparent;transition:border-color .3s ease}
+.bar.stuck{border-bottom-color:var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em;text-decoration:none}
+.brand img{width:26px;height:26px;border-radius:23%;object-fit:cover}
+.bar nav{display:flex;gap:22px;font-size:14.5px;font-weight:600}
+.bar nav a{text-decoration:none;color:var(--dim);transition:color .2s}
+.bar nav a:hover{color:var(--accent)}
+@media(max-width:700px){.bar nav{display:none}}
+
+.hero{padding:clamp(56px,9vw,104px) 0 clamp(40px,6vw,66px);position:relative;z-index:2}
+.id{display:flex;align-items:center;gap:20px}
+.id img{width:84px;height:84px;border-radius:23%;object-fit:cover;flex:none;
+  box-shadow:0 0 0 1px color-mix(in srgb, var(--text) 10%, transparent), 0 10px 26px rgba(0,0,0,.4)}
+.id h1{font-size:clamp(32px,6vw,58px);font-weight:900;letter-spacing:-.04em;line-height:1}
+.id .sub{color:var(--dim);font-size:15.5px;font-weight:600;margin-top:5px}
+.status{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:22px}
+.status i{width:8px;height:8px;border-radius:50%;background:#4A4A4A;flex:none}
+.acts{display:flex;flex-wrap:wrap;gap:13px;align-items:center;margin-top:26px}
+.btn{display:inline-block;text-decoration:none;background:var(--accent);color:var(--on-accent);
+  font-weight:800;padding:13px 22px;border-radius:11px;font-size:15.5px;
+  transition:transform .2s cubic-bezier(.2,.9,.3,1.2), filter .2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);font-weight:700}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent);filter:none;transform:translateY(-2px)}
+
+/* riquadro: documento che diventa audio */
+.job{margin-top:44px;max-width:430px;background:var(--panel);border:1px solid var(--line);
+  border-radius:18px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.34)}
+.job .cap{font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.file{display:flex;justify-content:space-between;gap:14px;align-items:baseline;
+  border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-top:13px;background:var(--bg)}
+.file .nm{font-family:var(--code);font-size:13.5px;font-weight:700;word-break:break-all}
+.file .sz{font-size:12.5px;color:var(--dim);flex:none}
+.file.out{border-color:color-mix(in srgb, var(--accent) 50%, var(--line))}
+.file.out .nm{color:var(--accent)}
+.sep{display:flex;align-items:center;gap:11px;color:var(--accent);margin:11px 2px}
+.sep .rule{height:1px;background:var(--line);flex:1}
+.job.run .sep svg{animation:down 1.5s ease-in-out infinite}
+@keyframes down{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+
+/* onda audio */
+.wave{display:flex;align-items:flex-end;gap:4px;height:38px;margin-top:17px}
+.wave span{flex:1;background:var(--line);border-radius:99px;height:22%}
+.job.run .wave span{background:var(--accent);animation:bounce 1.15s ease-in-out infinite}
+.job.run .wave span:nth-child(2){animation-delay:.08s}
+.job.run .wave span:nth-child(3){animation-delay:.16s}
+.job.run .wave span:nth-child(4){animation-delay:.24s}
+.job.run .wave span:nth-child(5){animation-delay:.32s}
+.job.run .wave span:nth-child(6){animation-delay:.40s}
+.job.run .wave span:nth-child(7){animation-delay:.48s}
+.job.run .wave span:nth-child(8){animation-delay:.56s}
+.job.run .wave span:nth-child(9){animation-delay:.64s}
+.job.run .wave span:nth-child(10){animation-delay:.72s}
+.job.run .wave span:nth-child(11){animation-delay:.80s}
+.job.run .wave span:nth-child(12){animation-delay:.88s}
+@keyframes bounce{0%,100%{height:18%}50%{height:100%}}
+.done{margin-top:13px;font-size:13.5px;color:var(--dim)}
+.done b{color:var(--text)}
+
+.claims{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:42px}
+@media(max-width:860px){.claims{grid-template-columns:1fr}}
+.claim{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--panel);
+  transition:border-color .35s ease, transform .35s ease}
+.claim:hover{border-color:color-mix(in srgb, var(--accent) 40%, var(--line));transform:translateY(-3px)}
+.claim h3{font-size:16.5px;font-weight:800;letter-spacing:-.015em}
+.claim p{color:var(--dim);font-size:14.5px;margin-top:9px}
+
+/* passaggi */
+.steps{margin-top:34px;border-top:1px solid var(--line)}
+.step{display:grid;grid-template-columns:70px 1fr;gap:22px;padding:24px 0;border-bottom:1px solid var(--line)}
+@media(max-width:700px){.step{grid-template-columns:1fr;gap:8px}}
+.step .n{font-family:var(--code);font-size:26px;font-weight:800;color:var(--accent);line-height:1}
+.step h3{font-size:17.5px;font-weight:800;letter-spacing:-.015em}
+.step p{color:var(--dim);font-size:15px;margin-top:8px;max-width:70ch}
+
+.rows{margin-top:32px;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:230px 1fr;gap:22px;padding:22px 0;border-bottom:1px solid var(--line)}
+@media(max-width:760px){.row{grid-template-columns:1fr;gap:12px}}
+.row .lab{font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.row .note{color:var(--dim);font-size:14.5px;margin-top:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.chip{font-family:var(--code);border:1px solid var(--line);border-radius:7px;padding:6px 11px;
+  font-size:13px;background:var(--panel);transition:border-color .3s ease,color .3s ease,transform .3s ease}
+.row:hover .chip{border-color:color-mix(in srgb, var(--accent) 45%, var(--line))}
+.chip:hover{color:var(--accent);transform:translateY(-2px)}
+
+.qa{border-bottom:1px solid var(--line);padding:24px 0}
+.qa h3{font-size:17.5px;font-weight:800;letter-spacing:-.015em}
+.qa p{color:var(--dim);font-size:15.5px;margin-top:9px;max-width:74ch}
+
+.note-box{border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 14px 14px 0;padding:22px 24px;margin-top:28px;background:var(--panel);max-width:74ch}
+.note-box h3{font-size:16.5px;font-weight:800}
+.note-box p{color:var(--dim);font-size:15px;margin-top:9px}
+
+footer{border-top:1px solid var(--line);padding:46px 0;position:relative;z-index:2}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+footer nav{display:flex;flex-wrap:wrap;gap:20px;font-size:14.5px}
+footer a{color:var(--dim);text-decoration:none;transition:color .2s}
+footer a:hover{color:var(--accent)}
+footer span{color:var(--dim);font-size:14px}
+
+.rv{opacity:0;transform:translateY(26px);
+  transition:opacity .8s cubic-bezier(.2,.8,.25,1), transform .8s cubic-bezier(.2,.8,.25,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.09s}.rv.d2{transition-delay:.18s}.rv.d3{transition-delay:.27s}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  .argyle,.glow{transform:none !important}
+  .progress{display:none}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .wave span{height:60%;background:var(--accent)}
+}
+</style>
+</head>
+<body>
+
+<div class="argyle" id="argyle" aria-hidden="true"></div>
+<div class="glow" id="glow" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="bar" id="bar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/podcast-em-all.png" alt="">The Yellow Apps</a>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#sources">Sources</a>
+      <a href="#faq">FAQ</a>
+      <a href="convert-em-all.html">Convert 'Em All</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="wrap hero">
+    <div class="id rv">
+      <img src="img/podcast-em-all.png" alt="Podcast 'Em All app icon" width="84" height="84">
+      <div>
+        <h1>Podcast 'Em All</h1>
+        <div class="sub">Documents you can listen to</div>
+      </div>
+    </div>
+    <div class="status rv d1"><i></i>In closed testing</div>
+    <p class="lede rv d1">Give it a PDF, a Word document, a text file or the link to an article. It comes back either as a faithful reading or as a two-host podcast that talks the thing through &mdash; and the voice is generated on your phone, not streamed from a cloud service.</p>
+    <div class="acts rv d2">
+      <a class="btn ghost" href="#how">How it works</a>
+      <span class="small">Not released yet · pricing not announced</span>
+    </div>
+
+    <div class="job rv d3" id="job" aria-hidden="true" data-demo>
+      <span class="cap">Generating</span>
+      <div class="file"><span class="nm" id="srcName">quarterly-report.PDF</span><span class="sz" id="srcSize">28 pages</span></div>
+      <div class="sep">
+        <span class="rule"></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        <span class="rule"></span>
+      </div>
+      <div class="file out"><span class="nm" id="outName">Two hosts · 14 min</span><span class="sz" id="outSize">MP3</span></div>
+      <div class="wave">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="done"><b>Speaking</b> · generated on the phone, line by line</div>
+    </div>
+
+    <div class="claims">
+      <div class="claim rv"><h3>A reading, or a conversation</h3><p>Pick a faithful single-voice reading of the source, or a dialogue where two hosts discuss it. Same document, two very different listens.</p></div>
+      <div class="claim rv d1"><h3>The voice is made on the phone</h3><p>Speech is synthesised on the device with Supertonic 3, one line at a time. No cloud text-to-speech, and no audio of you or your documents sent anywhere.</p></div>
+      <div class="claim rv d2"><h3>Ten voices</h3><p>Five female and five male presets. A dialogue casts two of them, one per host, so the two speakers stay distinct all the way through.</p></div>
+      <div class="claim rv"><h3>As deep as you want</h3><p>Choose overview, balanced or deep, and the script is written to match &mdash; a five-minute gist or a proper walk through the detail.</p></div>
+      <div class="claim rv d1"><h3>Keeps going without you</h3><p>Generation runs in an Android foreground service, so it carries on if you close the app and picks up again after a reboot. Each finished line is saved as it is made.</p></div>
+      <div class="claim rv d2"><h3>Player and export</h3><p>Play it back at the speed you like, and export the finished piece to MP3 to keep or share.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <div class="wrap">
+      <span class="eyebrow rv">How it works</span>
+      <h2 class="rv">Four steps, and only one of them needs you.</h2>
+
+      <div class="steps">
+        <div class="step rv">
+          <div class="n">01</div>
+          <div>
+            <h3>Add your sources</h3>
+            <p>One or several at a time: PDF, Word, plain text, Markdown, or a pasted link to an article. Pick the language you want to listen in and how deep it should go.</p>
+          </div>
+        </div>
+        <div class="step rv">
+          <div class="n">02</div>
+          <div>
+            <h3>The text is pulled out and a script is written</h3>
+            <p>Clean text is extracted from each source, then a language model turns it into either a reading or a two-host dialogue in the language you chose. This is the one step that uses a server.</p>
+          </div>
+        </div>
+        <div class="step rv">
+          <div class="n">03</div>
+          <div>
+            <h3>Your phone does the talking</h3>
+            <p>The script is synthesised on the device, line by line, and stitched into a single track. Every line is saved the moment it is made, so nothing is lost if the phone is busy, closed or restarted.</p>
+          </div>
+        </div>
+        <div class="step rv">
+          <div class="n">04</div>
+          <div>
+            <h3>Listen, or take it with you</h3>
+            <p>Finished pieces land in the library. Play at your own speed, or export to MP3 and put it wherever you keep your audio.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="note-box rv">
+        <h3>Where the work happens</h3>
+        <p>Being straight about this, because the other app in this family does everything offline and this one cannot. Writing the script needs a language model, and that runs on a server: the text of your sources is sent there to be turned into a script. <strong>The audio is entirely different</strong> &mdash; speech is generated on your phone, so no recording and no synthesised voice ever leaves the device. If listening to private documents matters to you, that distinction is the one to know.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="sources">
+    <div class="wrap">
+      <span class="eyebrow rv">Sources and output</span>
+      <h2 class="rv">What you can feed it</h2>
+
+      <div class="rows">
+        <div class="row rv">
+          <div><div class="lab">Documents</div><div class="note">Dropped in from anywhere on the phone. Several at once become a single piece.</div></div>
+          <div class="chips"><span class="chip">PDF</span><span class="chip">DOCX</span><span class="chip">TXT</span><span class="chip">MD</span></div>
+        </div>
+        <div class="row rv">
+          <div><div class="lab">The web</div><div class="note">Paste a link and the article is pulled out of the page, without the navigation and the cookie banners.</div></div>
+          <div class="chips"><span class="chip">URL</span></div>
+        </div>
+        <div class="row rv">
+          <div><div class="lab">Shape</div><div class="note">How the script is written, and how much of the source it covers.</div></div>
+          <div class="chips"><span class="chip">READING</span><span class="chip">DIALOGUE</span><span class="chip">OVERVIEW</span><span class="chip">BALANCED</span><span class="chip">DEEP</span></div>
+        </div>
+        <div class="row rv">
+          <div><div class="lab">Output</div><div class="note">Listen in the app, or take the file with you.</div></div>
+          <div class="chips"><span class="chip">WAV</span><span class="chip">MP3</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <span class="eyebrow rv">FAQ</span>
+      <h2 class="rv">Questions worth asking</h2>
+
+      <div style="margin-top:28px;border-top:1px solid var(--line)">
+        <div class="qa rv">
+          <h3>When can I get it?</h3>
+          <p>It is in closed testing and not on Google Play for everyone yet. There is no release date to promise, and it will not be announced here until it is real.</p>
+        </div>
+        <div class="qa rv">
+          <h3>What will it cost?</h3>
+          <p>Not decided yet, so there is no price on this page. What is already settled: it will not be free, and whatever the price turns out to be, it will not be an advert-supported app.</p>
+        </div>
+        <div class="qa rv">
+          <h3>Does it work offline?</h3>
+          <p>Partly, and the distinction matters. Writing the script needs a language model on a server, so that step needs a connection and sends the text of your sources. Turning the script into speech happens entirely on your phone, so the audio itself is never uploaded or streamed.</p>
+        </div>
+        <div class="qa rv">
+          <h3>Does it sound like a robot?</h3>
+          <p>It uses Supertonic 3, a current on-device speech model, at 44.1kHz. It is not a cloud voice and will not pretend to be one, but it is a long way from the flat text-to-speech built into a phone.</p>
+        </div>
+        <div class="qa rv">
+          <h3>What happens if I close the app?</h3>
+          <p>Nothing stops. Generation runs in an Android foreground service rather than in the screen you are looking at, and each finished line is written to disk as it is made. Force-close it, or restart the phone, and it carries on from where it was.</p>
+        </div>
+        <div class="qa rv">
+          <h3>Who makes it?</h3>
+          <p>Vittorio Vesco, an independent Android developer in Turin working solo under the name The Yellow Apps &mdash; the same person behind <a href="convert-em-all.html" style="color:var(--accent)">Convert 'Em All</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 The Yellow Apps &mdash; Vittorio Vesco &middot; Turin, Italy</span>
+    <nav>
+      <a href="index.html">All apps</a>
+      <a href="convert-em-all.html">Convert 'Em All</a>
+      <a href="changelog.html">Changelog</a>
+      <a href="https://wittox.github.io/convert--em-all/">Privacy</a>
+      <a href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealables = document.querySelectorAll('.rv');
+  var demos = document.querySelectorAll('[data-demo]');
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealables.forEach(function(el){ el.classList.add('in'); });
+    if (!reduce) demos.forEach(function(el){ el.classList.add('run'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin:'0px 0px -12% 0px', threshold:0.1 });
+    revealables.forEach(function(el){ io.observe(el); });
+
+    var dio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ e.target.classList.toggle('run', e.isIntersecting); });
+    }, { threshold:0.4 });
+    demos.forEach(function(el){ dio.observe(el); });
+  }
+
+  var samples = [
+    ["quarterly-report.PDF","28 pages","Two hosts · 14 min","MP3"],
+    ["long-read.URL","web article","One voice · 22 min","MP3"],
+    ["thesis-draft.DOCX","61 pages","Two hosts · 35 min","MP3"],
+    ["lecture-notes.MD","9 pages","One voice · 7 min","MP3"]
+  ];
+  var i = 0;
+  var job = document.getElementById('job');
+  var sn = document.getElementById('srcName'), ss = document.getElementById('srcSize');
+  var on = document.getElementById('outName'), os = document.getElementById('outSize');
+  if (!reduce && job && sn){
+    setInterval(function(){
+      if (!job.classList.contains('run')) return;
+      i = (i + 1) % samples.length;
+      var s = samples[i];
+      sn.textContent = s[0]; ss.textContent = s[1];
+      on.textContent = s[2]; os.textContent = s[3];
+    }, 3200);
+  }
+
+  var bar = document.getElementById('bar');
+  var progress = document.getElementById('progress');
+  var argyle = document.getElementById('argyle');
+  var glow = document.getElementById('glow');
+  var ticking = false;
+
+  function frame(){
+    var y = window.scrollY || window.pageYOffset || 0;
+    var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    if (progress) progress.style.transform = 'scaleX(' + Math.min(1, y / max) + ')';
+    if (bar) bar.classList.toggle('stuck', y > 8);
+    if (!reduce){
+      if (argyle) argyle.style.transform = 'translate3d(0,' + (y * -0.05) + 'px,0)';
+      if (glow)   glow.style.transform   = 'translate3d(0,' + (y *  0.16) + 'px,0)';
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if (!ticking){ ticking = true; requestAnimationFrame(frame); }
+  }, { passive:true });
+  frame();
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"When will Podcast 'Em All be released?",
+     "acceptedAnswer":{"@type":"Answer","text":"It is in closed testing and not generally available on Google Play yet. No release date has been announced."}},
+    {"@type":"Question","name":"Does Podcast 'Em All work offline?",
+     "acceptedAnswer":{"@type":"Answer","text":"Partly. Writing the script uses a language model on a server, so that step needs a connection and sends the text of your sources. Turning the script into speech happens entirely on the phone, so the audio is never uploaded or streamed."}},
+    {"@type":"Question","name":"What formats can Podcast 'Em All read?",
+     "acceptedAnswer":{"@type":"Answer","text":"PDF, Word documents, plain text and Markdown files, plus web articles from a pasted link. Output is a single audio track that can be exported to MP3."}},
+    {"@type":"Question","name":"Who makes Podcast 'Em All?",
+     "acceptedAnswer":{"@type":"Answer","text":"Vittorio Vesco, an independent Android developer based in Turin, Italy, working solo under the name The Yellow Apps."}}
+  ]
+}
+</script>
+
+</body>
+</html>

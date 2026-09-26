@@ -36,9 +36,22 @@ Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298
 - Video and audio work uses the phone's own hardware encoder.
 
 ### Podcast 'Em All
+- Page: https://theyellowapps.com/podcast-em-all.html
 - Status: in closed testing on Google Play, not publicly released yet.
 - Package: com.yellowapps.podcast_em_all
-- What it is: turns written text into audio, with the speech generated on the device.
+- What it is: turns PDFs, Word documents, text and Markdown files and web
+  articles into audio — either a faithful single-voice reading or a
+  two-host podcast dialogue, in the language the user picks, at one of
+  three depths (overview, balanced, deep).
+- Speech is synthesised ON THE DEVICE (Supertonic 3, ten preset voices,
+  44.1kHz). There is no cloud text-to-speech.
+- IMPORTANT, do not flatten this: writing the script uses a language model
+  on a server, so that step needs a connection and sends the source text.
+  Only the audio generation is on-device. Do not describe this app as
+  fully offline, and do not describe it as sending audio anywhere.
+- Generation runs in an Android foreground service: it continues if the app
+  is closed and resumes after a reboot.
+- Output can be exported to MP3. Playback speed is adjustable.
 - Price: NOT free. Pricing is not decided yet; do not describe this app as
   free or state a price for it.
 
