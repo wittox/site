@@ -17,7 +17,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Podcast 'Em All — documents you can listen to</title>
-<meta name="description" content="Turns PDFs, Word documents, text files and web articles into a spoken reading or a two-host podcast, with the voice generated on your Android phone.">
+<meta name="description" content="Turns PDFs, Word documents, text files and web articles into a spoken reading or a two-host podcast, in six languages, on Android.">
 <meta name="theme-color" content="#000000">
 
 <link rel="canonical" href="https://theyellowapps.com/podcast-em-all.html">
@@ -25,7 +25,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://theyellowapps.com/podcast-em-all.html">
 <meta property="og:title" content="Podcast 'Em All — documents you can listen to">
-<meta property="og:description" content="PDFs, Word documents and articles turned into a reading or a two-host podcast. The voice is generated on the phone.">
+<meta property="og:description" content="PDFs, Word documents and articles turned into a reading or a two-host podcast, in six languages.">
 <meta property="og:image" content="https://theyellowapps.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -183,6 +183,18 @@ h2{font-size:clamp(27px,4.4vw,45px);font-weight:900;letter-spacing:-.035em;line-
 .note-box h3{font-size:16.5px;font-weight:800}
 .note-box p{color:var(--dim);font-size:15px;margin-top:9px}
 
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+@media(max-width:760px){.plans{grid-template-columns:1fr}}
+.plan{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--panel)}
+.plan.best{border-color:color-mix(in srgb, var(--accent) 55%, var(--line))}
+.plan .k{font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.plan .k em{color:var(--accent);font-style:normal}
+.plan .v{font-size:clamp(26px,3.4vw,34px);font-weight:900;letter-spacing:-.03em;margin:9px 0 3px}
+.plan .v small{font-size:14px;font-weight:600;color:var(--dim);letter-spacing:0}
+.plan p{color:var(--dim);font-size:14.5px;margin-top:5px}
+.plus{list-style:none;margin-top:30px;max-width:66ch}
+.plus li{padding:13px 0;border-bottom:1px solid var(--line);font-size:15.5px;display:flex;gap:12px}
+.plus li::before{content:"+";color:var(--accent);font-weight:800;flex:none}
 footer{border-top:1px solid var(--line);padding:46px 0;position:relative;z-index:2}
 footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
 footer nav{display:flex;flex-wrap:wrap;gap:20px;font-size:14.5px}
@@ -217,6 +229,7 @@ footer span{color:var(--dim);font-size:14px}
     <nav>
       <a href="#how">How it works</a>
       <a href="#sources">Sources</a>
+      <a href="#pricing">Price</a>
       <a href="#faq">FAQ</a>
       <a href="convert-em-all.html">Convert 'Em All</a>
     </nav>
@@ -234,10 +247,10 @@ footer span{color:var(--dim);font-size:14px}
       </div>
     </div>
     <div class="status rv d1"><i></i>In closed testing</div>
-    <p class="lede rv d1">Give it a PDF, a Word document, a text file or the link to an article. It comes back either as a faithful reading or as a two-host podcast that talks the thing through &mdash; and the voice is generated on your phone, not streamed from a cloud service.</p>
+    <p class="lede rv d1">Give it a PDF, a Word document, a text file or the link to an article. It comes back either as a straight reading in one voice, or as a podcast where two hosts talk the thing through &mdash; in Italian, English, Spanish, French, Portuguese or German, at whatever depth you asked for.</p>
     <div class="acts rv d2">
       <a class="btn ghost" href="#how">How it works</a>
-      <span class="small">Not released yet · pricing not announced</span>
+      <span class="small">Not released yet</span>
     </div>
 
     <div class="job rv d3" id="job" aria-hidden="true" data-demo>
@@ -248,21 +261,21 @@ footer span{color:var(--dim);font-size:14px}
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
         <span class="rule"></span>
       </div>
-      <div class="file out"><span class="nm" id="outName">Two hosts · 14 min</span><span class="sz" id="outSize">MP3</span></div>
+      <div class="file out"><span class="nm" id="outName">Podcast &middot; two hosts</span><span class="sz" id="outSize">MP3</span></div>
       <div class="wave">
         <span></span><span></span><span></span><span></span><span></span><span></span>
         <span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
-      <div class="done"><b>Speaking</b> · generated on the phone, line by line</div>
+      <div class="done"><b>Speaking</b> &middot; one line at a time, saved as it goes</div>
     </div>
 
     <div class="claims">
-      <div class="claim rv"><h3>A reading, or a conversation</h3><p>Pick a faithful single-voice reading of the source, or a dialogue where two hosts discuss it. Same document, two very different listens.</p></div>
-      <div class="claim rv d1"><h3>The voice is made on the phone</h3><p>Speech is synthesised on the device with Supertonic 3, one line at a time. No cloud text-to-speech, and no audio of you or your documents sent anywhere.</p></div>
-      <div class="claim rv d2"><h3>Ten voices</h3><p>Five female and five male presets. A dialogue casts two of them, one per host, so the two speakers stay distinct all the way through.</p></div>
-      <div class="claim rv"><h3>As deep as you want</h3><p>Choose overview, balanced or deep, and the script is written to match &mdash; a five-minute gist or a proper walk through the detail.</p></div>
-      <div class="claim rv d1"><h3>Keeps going without you</h3><p>Generation runs in an Android foreground service, so it carries on if you close the app and picks up again after a reboot. Each finished line is saved as it is made.</p></div>
-      <div class="claim rv d2"><h3>Player and export</h3><p>Play it back at the speed you like, and export the finished piece to MP3 to keep or share.</p></div>
+      <div class="claim rv"><h3>A reading, or a conversation</h3><p>&ldquo;Read it&rdquo; gives you one voice and the text as it stands. &ldquo;Podcast&rdquo; casts two voices who discuss it instead. Same document, two very different listens.</p></div>
+      <div class="claim rv d1"><h3>Six languages, and it translates</h3><p>Italian, English, Spanish, French, Portuguese and German. Italian is the source language; pick any of the others and your sources are translated before they are spoken.</p></div>
+      <div class="claim rv d2"><h3>As deep as you want</h3><p>Overview for the gist, Balanced for the key points, In-depth for every detail. There is also a box for your own instructions on how it should be handled.</p></div>
+      <div class="claim rv"><h3>Several sources, one piece</h3><p>Add more than one document, or mix documents with a link, and they become a single listen rather than a queue of separate ones.</p></div>
+      <div class="claim rv d1"><h3>Keeps going without you</h3><p>Generation runs in an Android foreground service, so it carries on if you close the app and picks up after a reboot. Each finished line is written to disk as it is made, so a kill costs you one line at most.</p></div>
+      <div class="claim rv d2"><h3>Follow along, or take it with you</h3><p>The player highlights the line being spoken as it plays, at one of five speeds, and the finished piece exports to MP3.</p></div>
     </div>
   </section>
 
@@ -276,62 +289,102 @@ footer span{color:var(--dim);font-size:14px}
           <div class="n">01</div>
           <div>
             <h3>Add your sources</h3>
-            <p>One or several at a time: PDF, Word, plain text, Markdown, or a pasted link to an article. Pick the language you want to listen in and how deep it should go.</p>
+            <p>One or several: PDF, Word, plain text, Markdown, or a pasted link to an article. Choose the language, whether you want a reading or a podcast, and how deep it should go. There is a box for your own instructions, and a switch that lets it search the web for context around your sources.</p>
           </div>
         </div>
         <div class="step rv">
           <div class="n">02</div>
           <div>
             <h3>The text is pulled out and a script is written</h3>
-            <p>Clean text is extracted from each source, then a language model turns it into either a reading or a two-host dialogue in the language you chose. This is the one step that uses a server.</p>
+            <p>Clean text is extracted from every source &mdash; for a link, the article is lifted out of the page without the navigation and the banners. A language model then turns it into a reading or a two-host dialogue in the language you picked, translating along the way if that is not the language the sources are written in.</p>
           </div>
         </div>
         <div class="step rv">
           <div class="n">03</div>
           <div>
-            <h3>Your phone does the talking</h3>
-            <p>The script is synthesised on the device, line by line, and stitched into a single track. Every line is saved the moment it is made, so nothing is lost if the phone is busy, closed or restarted.</p>
+            <h3>The script is spoken, line by line</h3>
+            <p>Each line is synthesised and comes back as audio, then gets stitched into one track with the pauses in the right places. Every finished line is saved the moment it arrives, so the work survives a force-close, a flat battery or a restart.</p>
           </div>
         </div>
         <div class="step rv">
           <div class="n">04</div>
           <div>
             <h3>Listen, or take it with you</h3>
-            <p>Finished pieces land in the library. Play at your own speed, or export to MP3 and put it wherever you keep your audio.</p>
+            <p>Finished pieces land in the library. Play them at the speed you like while the script scrolls along with the voice, or export to MP3 and put it wherever you keep your audio.</p>
           </div>
         </div>
       </div>
 
       <div class="note-box rv">
         <h3>Where the work happens</h3>
-        <p>Being straight about this, because the other app in this family does everything offline and this one cannot. Writing the script needs a language model, and that runs on a server: the text of your sources is sent there to be turned into a script. <strong>The audio is entirely different</strong> &mdash; speech is generated on your phone, so no recording and no synthesised voice ever leaves the device. If listening to private documents matters to you, that distinction is the one to know.</p>
+        <p>Worth being straight about, because the other app in this family does everything on the phone and this one does not. Podcast &rsquo;Em All needs a connection: the text of your sources is sent to a server, where the script is written and then spoken, one line at a time. What comes back to your phone is the audio. If you are working with documents you would not want leaving the device, this is the app where that matters &mdash; <a href="convert-em-all.html" style="color:var(--accent)">Convert &rsquo;Em All</a> is the one that never sends anything anywhere.</p>
       </div>
     </div>
   </section>
 
   <section class="sec" id="sources">
     <div class="wrap">
-      <span class="eyebrow rv">Sources and output</span>
+      <span class="eyebrow rv">Sources and options</span>
       <h2 class="rv">What you can feed it</h2>
 
       <div class="rows">
         <div class="row rv">
-          <div><div class="lab">Documents</div><div class="note">Dropped in from anywhere on the phone. Several at once become a single piece.</div></div>
+          <div><div class="lab">Documents</div><div class="note">Picked from anywhere on the phone. Several at once become a single piece.</div></div>
           <div class="chips"><span class="chip">PDF</span><span class="chip">DOCX</span><span class="chip">TXT</span><span class="chip">MD</span></div>
         </div>
         <div class="row rv">
-          <div><div class="lab">The web</div><div class="note">Paste a link and the article is pulled out of the page, without the navigation and the cookie banners.</div></div>
-          <div class="chips"><span class="chip">URL</span></div>
+          <div><div class="lab">The web</div><div class="note">Paste a link and the article is pulled out of the page. A separate switch lets it search the web for extra context around your sources.</div></div>
+          <div class="chips"><span class="chip">URL</span><span class="chip">WEB SEARCH</span></div>
         </div>
         <div class="row rv">
-          <div><div class="lab">Shape</div><div class="note">How the script is written, and how much of the source it covers.</div></div>
-          <div class="chips"><span class="chip">READING</span><span class="chip">DIALOGUE</span><span class="chip">OVERVIEW</span><span class="chip">BALANCED</span><span class="chip">DEEP</span></div>
+          <div><div class="lab">Languages</div><div class="note">Italian is the source language; everything else is translated first. The voices differ by language: English and Spanish have a female and a male, French a female only, Italian, Portuguese and German a male only.</div></div>
+          <div class="chips"><span class="chip">IT</span><span class="chip">EN</span><span class="chip">ES</span><span class="chip">FR</span><span class="chip">PT</span><span class="chip">DE</span></div>
         </div>
         <div class="row rv">
-          <div><div class="lab">Output</div><div class="note">Listen in the app, or take the file with you.</div></div>
-          <div class="chips"><span class="chip">WAV</span><span class="chip">MP3</span></div>
+          <div><div class="lab">Shape</div><div class="note">How the script is written, and how much of the source it covers. The two-host podcast needs a language with two voices, so in French only the reading is available.</div></div>
+          <div class="chips"><span class="chip">READ IT</span><span class="chip">PODCAST</span><span class="chip">OVERVIEW</span><span class="chip">BALANCED</span><span class="chip">IN-DEPTH</span></div>
+        </div>
+        <div class="row rv">
+          <div><div class="lab">Output</div><div class="note">Listen in the app with the script following along, or take the file with you.</div></div>
+          <div class="chips"><span class="chip">MP3</span><span class="chip">5 SPEEDS</span><span class="chip">TRANSCRIPT</span></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="sec" id="pricing">
+    <div class="wrap">
+      <span class="eyebrow rv">Price</span>
+      <h2 class="rv">A monthly plan, because the work is not free to run.</h2>
+      <p class="lede rv">Writing a script and speaking it costs real money every time. This app cannot follow the one-time rule the rest of the family does, so it is priced to be honest about that rather than to squeeze you.</p>
+
+      <div class="plans">
+        <div class="plan rv">
+          <div class="k">Base</div>
+          <div class="v">&euro;0.99<small>/month</small></div>
+          <p>10 podcasts a month.</p>
+        </div>
+        <div class="plan best rv d1">
+          <div class="k">Plus <em>&middot; recommended</em></div>
+          <div class="v">&euro;1.99<small>/month</small></div>
+          <p>30 podcasts a month.</p>
+        </div>
+        <div class="plan rv d2">
+          <div class="k">Max</div>
+          <div class="v">&euro;2.99<small>/month</small></div>
+          <p>50 podcasts a month.</p>
+        </div>
+      </div>
+
+      <ul class="plus">
+        <li class="rv"><span><strong>Three podcasts free to start</strong>, once, with no card and no plan</span></li>
+        <li class="rv"><span><strong>Readings in the original language are always free</strong> and unlimited, plan or no plan</span></li>
+        <li class="rv"><span>A podcast that fails costs you nothing &mdash; only finished ones count</span></li>
+        <li class="rv"><span>One counter, no credits and no packs to buy on top</span></li>
+        <li class="rv"><span>Move up a plan and it applies at once; move down and it waits for the renewal</span></li>
+        <li class="rv"><span>No adverts, no tracking, and nothing collected about what you listen to</span></li>
+      </ul>
+      <p class="small rv" style="margin-top:20px">Unused podcasts do not roll over to the next month. Plans are billed through Google Play and can be cancelled there at any time.</p>
     </div>
   </section>
 
@@ -346,24 +399,28 @@ footer span{color:var(--dim);font-size:14px}
           <p>It is in closed testing and not on Google Play for everyone yet. There is no release date to promise, and it will not be announced here until it is real.</p>
         </div>
         <div class="qa rv">
-          <h3>What will it cost?</h3>
-          <p>Not decided yet, so there is no price on this page. What is already settled: it will not be free, and whatever the price turns out to be, it will not be an advert-supported app.</p>
-        </div>
-        <div class="qa rv">
           <h3>Does it work offline?</h3>
-          <p>Partly, and the distinction matters. Writing the script needs a language model on a server, so that step needs a connection and sends the text of your sources. Turning the script into speech happens entirely on your phone, so the audio itself is never uploaded or streamed.</p>
+          <p>No, and this is the thing worth knowing before you install it. The text of your sources is sent to a server, where the script is written and then spoken; your phone receives the finished audio. Unlike Convert &rsquo;Em All, this app cannot do its job without a connection.</p>
         </div>
         <div class="qa rv">
-          <h3>Does it sound like a robot?</h3>
-          <p>It uses Supertonic 3, a current on-device speech model, at 44.1kHz. It is not a cloud voice and will not pretend to be one, but it is a long way from the flat text-to-speech built into a phone.</p>
+          <h3>Is anything free?</h3>
+          <p>Two things. The first three podcasts, once, without a plan. And readings in the original language, which are free and unlimited forever &mdash; it is the translated readings and the two-host podcasts that count against a plan.</p>
+        </div>
+        <div class="qa rv">
+          <h3>Why a subscription, when the other app is free?</h3>
+          <p>Because every podcast costs something to produce. Convert &rsquo;Em All runs entirely on your phone, so it costs nothing to give away. This one writes and speaks on a server, and a monthly plan is the honest way to cover that instead of pretending it is free and finding a worse way to pay for it.</p>
         </div>
         <div class="qa rv">
           <h3>What happens if I close the app?</h3>
-          <p>Nothing stops. Generation runs in an Android foreground service rather than in the screen you are looking at, and each finished line is written to disk as it is made. Force-close it, or restart the phone, and it carries on from where it was.</p>
+          <p>Nothing stops. Generation runs in an Android foreground service rather than in the screen you are looking at, and each finished line is written to disk as it arrives. Force-close it, or restart the phone, and it carries on from where it was.</p>
+        </div>
+        <div class="qa rv">
+          <h3>Can I listen in a language my documents are not written in?</h3>
+          <p>Yes. Italian is the language sources are expected in; choose English, Spanish, French, Portuguese or German and the material is translated before it is spoken.</p>
         </div>
         <div class="qa rv">
           <h3>Who makes it?</h3>
-          <p>Vittorio Vesco, an independent Android developer in Turin working solo under the name The Yellow Apps &mdash; the same person behind <a href="convert-em-all.html" style="color:var(--accent)">Convert 'Em All</a>.</p>
+          <p>Vittorio Vesco, an independent Android developer in Turin working solo under the name The Yellow Apps &mdash; the same person behind <a href="convert-em-all.html" style="color:var(--accent)">Convert &rsquo;Em All</a>.</p>
         </div>
       </div>
     </div>
@@ -408,10 +465,10 @@ footer span{color:var(--dim);font-size:14px}
   }
 
   var samples = [
-    ["quarterly-report.PDF","28 pages","Two hosts · 14 min","MP3"],
-    ["long-read.URL","web article","One voice · 22 min","MP3"],
-    ["thesis-draft.DOCX","61 pages","Two hosts · 35 min","MP3"],
-    ["lecture-notes.MD","9 pages","One voice · 7 min","MP3"]
+    ["quarterly-report.PDF","28 pages","Podcast · two hosts","MP3"],
+    ["long-read.URL","web article","Read it · one voice","MP3"],
+    ["thesis-draft.DOCX","61 pages","Podcast · in-depth","MP3"],
+    ["lecture-notes.MD","9 pages","Read it · in English","MP3"]
   ];
   var i = 0;
   var job = document.getElementById('job');
@@ -459,9 +516,13 @@ footer span{color:var(--dim);font-size:14px}
     {"@type":"Question","name":"When will Podcast 'Em All be released?",
      "acceptedAnswer":{"@type":"Answer","text":"It is in closed testing and not generally available on Google Play yet. No release date has been announced."}},
     {"@type":"Question","name":"Does Podcast 'Em All work offline?",
-     "acceptedAnswer":{"@type":"Answer","text":"Partly. Writing the script uses a language model on a server, so that step needs a connection and sends the text of your sources. Turning the script into speech happens entirely on the phone, so the audio is never uploaded or streamed."}},
+     "acceptedAnswer":{"@type":"Answer","text":"No. The text of your sources is sent to a server, where the script is written and spoken, and the phone receives the finished audio. The app needs a connection to do its job."}},
+    {"@type":"Question","name":"How much does Podcast 'Em All cost?",
+     "acceptedAnswer":{"@type":"Answer","text":"A monthly plan: Base at EUR 0.99 for 10 podcasts a month, Plus at EUR 1.99 for 30, Max at EUR 2.99 for 50. The first three podcasts are free, once, and readings in the original language are always free and unlimited."}},
+    {"@type":"Question","name":"Which languages does Podcast 'Em All support?",
+     "acceptedAnswer":{"@type":"Answer","text":"Italian, English, Spanish, French, Portuguese and German. Italian is the source language; the others are translated before being spoken. The two-host podcast needs a language with two voices, so French offers the single-voice reading only."}},
     {"@type":"Question","name":"What formats can Podcast 'Em All read?",
-     "acceptedAnswer":{"@type":"Answer","text":"PDF, Word documents, plain text and Markdown files, plus web articles from a pasted link. Output is a single audio track that can be exported to MP3."}},
+     "acceptedAnswer":{"@type":"Answer","text":"PDF, Word documents, plain text and Markdown files, plus web articles from a pasted link. The result exports to MP3."}},
     {"@type":"Question","name":"Who makes Podcast 'Em All?",
      "acceptedAnswer":{"@type":"Answer","text":"Vittorio Vesco, an independent Android developer based in Turin, Italy, working solo under the name The Yellow Apps."}}
   ]
