@@ -3,21 +3,14 @@
 <head>
 <!--
   ============================================================
-  CONVERT 'EM ALL — pagina prodotto
+  CONVERT 'EM ALL — pagina app
   ------------------------------------------------------------
-  NOTA: da questa pagina sono state tolte tutte le frasi tipo
-  "funziona offline / niente esce dal telefono / nessun server",
-  perche' non corrispondono al vero. Nella FAQ c'e' un blocco
-  commentato per scrivere la risposta giusta sulla connessione.
+  Stesso sistema visivo della home: rombi di sfondo, bagliore,
+  barra di avanzamento, comparsa allo scroll (class="rv",
+  ritardi d1/d2/d3) e riquadri animati (data-demo).
 
-  DA CONTROLLARE (cerca "EDIT:"):
-   1. Lista formati reali          -> sezione Formats
-   2. Prezzo dello sblocco Pro     -> sezione Pricing
-   3. Versione minima di Android   -> FAQ
-   4. Cosa richiede connessione    -> FAQ
-   5. Cartella di destinazione dei file convertiti -> FAQ
-   6. Email di contatto + privacy  -> footer
-   7. Screenshot: sezione commentata piu' in basso
+  SCREENSHOT: la sezione #screens e' commentata piu' sotto.
+  Scommentala appena i 5 PNG sono dentro /img.
   ============================================================
 -->
 <meta charset="utf-8">
@@ -27,6 +20,7 @@
 <meta name="theme-color" content="#000000">
 
 <link rel="canonical" href="https://theyellowapps.com/convert-em-all.html">
+<link rel="icon" href="img/convert-em-all.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://theyellowapps.com/convert-em-all.html">
 <meta property="og:title" content="Convert 'Em All — file converter for Android">
@@ -34,11 +28,9 @@
 <meta property="og:image" content="https://theyellowapps.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="img/convert-em-all.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -49,6 +41,7 @@
   --text:#FFFFFF;
   --dim:#9A9A9A;
   --accent:#FFD600;
+  --on-accent:#000000;
   --sans:'Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
   --code:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
@@ -61,184 +54,234 @@
     --text:#111111;
     --dim:#5E5E5E;
     --accent:#B38F00;
+    --on-accent:#FFFFFF;
   }
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:#000 !important}
-.page{background:#000;color:#fff;min-height:100vh;position:relative;z-index:0}
 html{scroll-behavior:smooth}
-body{background:#000;color:#fff;font-family:var(--sans);font-size:17px;line-height:1.6;
-  -webkit-font-smoothing:antialiased}
-.wrap{max-width:980px;margin:0 auto;padding:0 22px}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--sans);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
 a{color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.eyebrow{display:block;font-size:12.5px;font-weight:600;letter-spacing:.16em;
+img{max-width:100%;display:block}
+
+.argyle{
+  position:fixed;inset:-10% 0;z-index:0;pointer-events:none;opacity:.55;
+  background:repeating-conic-gradient(from 45deg at 50% 50%,
+    var(--panel) 0deg 90deg, transparent 90deg 180deg);
+  background-size:72px 72px;will-change:transform;
+}
+.glow{
+  position:fixed;z-index:0;pointer-events:none;
+  width:60vmax;height:60vmax;left:50%;top:-22vmax;margin-left:-30vmax;
+  background:radial-gradient(circle,
+    color-mix(in srgb, var(--accent) 13%, transparent) 0%, transparent 62%);
+  will-change:transform;
+}
+.progress{
+  position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;
+  background:var(--accent);transform:scaleX(0);transform-origin:0 50%;
+}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
+.sec{padding:clamp(66px,10vw,118px) 0;position:relative;z-index:2}
+.eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.18em;
   text-transform:uppercase;color:var(--accent)}
-
-.bar{position:sticky;top:0;z-index:50;background:#000;border-bottom:1px solid var(--line)}
-.bar-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:62px}
-.bar a{text-decoration:none}
-.back{display:flex;align-items:center;gap:9px;color:var(--dim);font-size:14.5px;font-weight:500}
-.back:hover{color:var(--accent)}
-.bar .mail{color:var(--dim);font-size:14.5px}
-.bar .mail:hover{color:var(--accent)}
-
-.sec{border-top:1px solid var(--line);padding:66px 0}
-.sec h2{font-size:clamp(23px,3.2vw,33px);font-weight:800;letter-spacing:-.025em;margin-top:16px}
-.lede{color:var(--dim);max-width:62ch;margin-top:14px;font-size:16px}
-
-/* ---------- testata ---------- */
-.hero{padding:48px 0 60px}
-.id{display:flex;align-items:center;gap:22px}
-.id img{width:clamp(70px,11vw,96px);height:auto;flex:none;display:block;border-radius:22%}
-.id h1{font-size:clamp(28px,5vw,46px);font-weight:800;line-height:1.06;letter-spacing:-.03em}
-.id .sub{color:var(--dim);font-size:14.5px;margin-top:7px}
-.hero .lede{margin-top:22px}
-.acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:28px}
-.btn{display:inline-block;text-decoration:none;background:var(--accent);color:#000;font-weight:700;
-  padding:13px 22px;border-radius:8px;font-size:15.5px;transition:filter .15s ease}
-.btn:hover{filter:brightness(1.1)}
-.btn.ghost{background:transparent;color:#fff;border:1px solid var(--line);font-weight:600}
-.btn.ghost:hover{border-color:var(--accent);color:var(--accent);filter:none}
+h2{font-size:clamp(27px,4.4vw,45px);font-weight:900;letter-spacing:-.035em;line-height:1.07;margin-top:14px}
+.lede{color:var(--dim);max-width:62ch;margin-top:16px;font-size:clamp(16px,1.7vw,18.5px)}
 .small{color:var(--dim);font-size:14.5px}
 
-/* ---------- card conversione ---------- */
-.job{border:1px solid var(--line);border-radius:16px;background:var(--panel);
-  padding:24px 26px;margin-top:36px;max-width:520px}
-.job .cap{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-.file{display:flex;align-items:baseline;gap:12px;margin-top:10px;font-family:var(--code);
-  font-size:clamp(13px,2vw,16px);white-space:nowrap;overflow:hidden}
-.file .nm{overflow:hidden;text-overflow:ellipsis}
-.file .sz{margin-left:auto;color:var(--dim);font-size:13px;flex:none}
-.file.out .nm{color:var(--accent)}
-.sep{display:flex;align-items:center;gap:12px;margin:16px 0;color:var(--accent)}
-.sep .rule{height:1px;background:var(--line);flex:1}
-.track{height:5px;background:#1C1C1C;border-radius:99px;overflow:hidden;margin-top:22px}
-.track span{display:block;height:100%;width:0;background:var(--accent);border-radius:99px}
-.track.run span{width:100%;transition:width 1.2s cubic-bezier(.3,.8,.3,1)}
-.done{font-size:13.5px;color:var(--dim);margin-top:11px;opacity:0;transition:opacity .3s ease}
-.done.on{opacity:1}
-.done b{color:var(--accent);font-weight:700}
+.bar{
+  position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+  background:color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom:1px solid transparent;transition:border-color .3s ease;
+}
+.bar.stuck{border-bottom-color:var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em;text-decoration:none}
+.brand img{width:26px;height:26px;border-radius:23%;object-fit:cover}
+.bar nav{display:flex;gap:22px;font-size:14.5px;font-weight:600}
+.bar nav a{text-decoration:none;color:var(--dim);transition:color .2s}
+.bar nav a:hover{color:var(--accent)}
+@media(max-width:700px){.bar nav{display:none}}
 
-/* ---------- tre punti ---------- */
-.claims{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
-.claim{border:1px solid var(--line);border-radius:14px;padding:20px}
-.claim h3{font-size:16px;font-weight:700;letter-spacing:-.01em}
+/* ── Hero ──────────────────────────────────────────────────────────── */
+.hero{padding:clamp(56px,9vw,104px) 0 clamp(40px,6vw,66px);position:relative;z-index:2}
+.id{display:flex;align-items:center;gap:20px}
+.id img{width:84px;height:84px;border-radius:23%;object-fit:cover;flex:none;
+  box-shadow:0 0 0 1px color-mix(in srgb, var(--text) 10%, transparent), 0 10px 26px rgba(0,0,0,.4)}
+.id h1{font-size:clamp(34px,6.4vw,62px);font-weight:900;letter-spacing:-.04em;line-height:1}
+.id .sub{color:var(--dim);font-size:15.5px;font-weight:600;margin-top:5px}
+.acts{display:flex;flex-wrap:wrap;gap:13px;align-items:center;margin-top:28px}
+.btn{display:inline-block;text-decoration:none;background:var(--accent);color:var(--on-accent);
+  font-weight:800;padding:13px 22px;border-radius:11px;font-size:15.5px;
+  transition:transform .2s cubic-bezier(.2,.9,.3,1.2), filter .2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);font-weight:700}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent);filter:none;transform:translateY(-2px)}
+
+/* riquadro della conversione, in loop finche' e' in vista */
+.job{
+  margin-top:44px;max-width:430px;background:var(--panel);
+  border:1px solid var(--line);border-radius:18px;padding:22px;
+  box-shadow:0 18px 50px rgba(0,0,0,.34);
+}
+.job .cap{font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.file{display:flex;justify-content:space-between;gap:14px;align-items:baseline;
+  border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-top:13px;background:var(--bg)}
+.file .nm{font-family:var(--code);font-size:13.5px;font-weight:700;word-break:break-all}
+.file .sz{font-size:12.5px;color:var(--dim);flex:none}
+.file.out{border-color:color-mix(in srgb, var(--accent) 50%, var(--line))}
+.file.out .nm{color:var(--accent)}
+.sep{display:flex;align-items:center;gap:11px;color:var(--accent);margin:11px 2px}
+.sep .rule{height:1px;background:var(--line);flex:1}
+.job.run .sep svg{animation:down 1.5s ease-in-out infinite}
+@keyframes down{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+.track{height:5px;border-radius:99px;background:var(--line);margin-top:17px;overflow:hidden}
+.track span{display:block;height:100%;width:0;border-radius:99px;background:var(--accent)}
+.job.run .track span{animation:fill 2.6s cubic-bezier(.3,.7,.3,1) infinite}
+@keyframes fill{0%{width:0}72%{width:100%}100%{width:100%}}
+.done{margin-top:13px;font-size:13.5px;color:var(--dim);opacity:0}
+.job.run .done{animation:showdone 2.6s ease infinite}
+@keyframes showdone{0%,62%{opacity:0}78%,100%{opacity:1}}
+.done b{color:var(--text)}
+
+.claims{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:42px}
+@media(max-width:860px){.claims{grid-template-columns:1fr}}
+.claim{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--panel);
+  transition:border-color .35s ease, transform .35s ease}
+.claim:hover{border-color:color-mix(in srgb, var(--accent) 40%, var(--line));transform:translateY(-3px)}
+.claim h3{font-size:16.5px;font-weight:800;letter-spacing:-.015em}
 .claim p{color:var(--dim);font-size:14.5px;margin-top:9px}
 
-/* ---------- formati ---------- */
-.rows{margin-top:28px;border-top:1px solid var(--line)}
-.row{display:grid;grid-template-columns:190px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
-.row .lab{font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+/* ── Formati ───────────────────────────────────────────────────────── */
+.rows{margin-top:32px;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:230px 1fr;gap:22px;padding:22px 0;border-bottom:1px solid var(--line)}
+@media(max-width:760px){.row{grid-template-columns:1fr;gap:12px}}
+.row .lab{font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 .row .note{color:var(--dim);font-size:14.5px;margin-top:8px}
-.chips{display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start}
-.chip{font-family:var(--code);border:1px solid var(--line);border-radius:6px;padding:5px 10px;font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.chip{font-family:var(--code);border:1px solid var(--line);border-radius:7px;padding:6px 11px;font-size:13px;
+  background:var(--panel);transition:border-color .3s ease, color .3s ease, transform .3s ease}
+.row:hover .chip{border-color:color-mix(in srgb, var(--accent) 45%, var(--line))}
+.chip:hover{color:var(--accent);transform:translateY(-2px)}
 
-/* ---------- prezzo ---------- */
-.plus{list-style:none;margin-top:22px}
-.plus li{padding:13px 0;border-bottom:1px solid var(--line);font-size:15.5px;
-  display:grid;grid-template-columns:24px 1fr;gap:8px}
-.plus li::before{content:"+";color:var(--accent);font-weight:700}
-.pricebox{border:1px solid var(--line);border-radius:16px;padding:26px;margin-top:28px;max-width:52ch}
-.pricebox .k{color:var(--dim);font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
-.pricebox .v{font-size:clamp(20px,2.6vw,26px);font-weight:800;letter-spacing:-.02em;margin:9px 0 3px}
+/* ── Prezzo ────────────────────────────────────────────────────────── */
+.plus{list-style:none;margin-top:24px;max-width:62ch}
+.plus li{padding:13px 0;border-bottom:1px solid var(--line);font-size:15.5px;display:flex;gap:12px}
+.plus li::before{content:"+";color:var(--accent);font-weight:800;flex:none}
+.pricebox{border:1px solid var(--line);border-radius:18px;padding:26px;margin-top:30px;max-width:52ch;background:var(--panel)}
+.pricebox .k{color:var(--dim);font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.pricebox .v{font-size:clamp(28px,4vw,40px);font-weight:900;letter-spacing:-.03em;margin:8px 0 3px;color:var(--accent)}
 .pricebox p{color:var(--dim);font-size:14.5px;margin-top:14px}
 
-/* ---------- faq ---------- */
+/* ── FAQ ───────────────────────────────────────────────────────────── */
 .qa{border-bottom:1px solid var(--line);padding:24px 0}
-.qa h3{font-size:17px;font-weight:700;letter-spacing:-.01em}
-.qa p{color:var(--dim);font-size:15.5px;margin-top:9px;max-width:72ch}
+.qa h3{font-size:17.5px;font-weight:800;letter-spacing:-.015em}
+.qa p{color:var(--dim);font-size:15.5px;margin-top:9px;max-width:74ch}
 
-footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;color:var(--dim)}
-.foot{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between}
-.foot a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--line)}
-.foot a:hover{color:var(--accent);border-color:var(--accent)}
-.foot nav{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start}
+footer{border-top:1px solid var(--line);padding:46px 0;position:relative;z-index:2}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+footer nav{display:flex;flex-wrap:wrap;gap:20px;font-size:14.5px}
+footer a{color:var(--dim);text-decoration:none;transition:color .2s}
+footer a:hover{color:var(--accent)}
+footer span{color:var(--dim);font-size:14px}
 
-@media(max-width:760px){
-  .claims{grid-template-columns:1fr}
-  .row{grid-template-columns:1fr;gap:12px}
-  .sec{padding:50px 0}
-  .hero{padding:36px 0 46px}
-}
-@media(prefers-reduced-motion:reduce){
+.rv{opacity:0;transform:translateY(26px);
+  transition:opacity .8s cubic-bezier(.2,.8,.25,1), transform .8s cubic-bezier(.2,.8,.25,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.09s}.rv.d2{transition-delay:.18s}.rv.d3{transition-delay:.27s}
+
+@media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
-  *{transition:none!important;animation:none!important}
+  .rv{opacity:1;transform:none;transition:none}
+  .argyle,.glow{transform:none !important}
+  .progress{display:none}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .track span{width:100%}
+  .done{opacity:1}
 }
 </style>
 </head>
-<body style="background:var(--bg);color:var(--text)">
-<div class="page" style="background:#000;color:#fff;min-height:100vh">
+<body>
 
-<header class="bar">
-  <div class="wrap bar-in">
-    <a class="back" href="index.html">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-      All apps
-    </a>
-        <a class="mail" href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
+<div class="argyle" id="argyle" aria-hidden="true"></div>
+<div class="glow" id="glow" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="bar" id="bar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/convert-em-all.png" alt="">The Yellow Apps</a>
+    <nav>
+      <a href="#formats">Formats</a>
+      <a href="#pricing">Price</a>
+      <a href="#faq">FAQ</a>
+      <a href="changelog.html">Changelog</a>
+    </nav>
   </div>
 </header>
 
 <main id="top">
 
   <section class="wrap hero">
-    <div class="id">
-      <img src="img/convert-em-all.png" alt="Convert 'Em All app icon">
+    <div class="id rv">
+      <img src="img/convert-em-all.png" alt="Convert 'Em All app icon" width="84" height="84">
       <div>
         <h1>Convert 'Em All</h1>
         <div class="sub">File converter for Android</div>
       </div>
     </div>
-    <p class="lede">Images, audio, video and documents, turned into the formats people actually ask you for — and several PDFs merged into one when you need it. Free, with no adverts and no account to create.</p>
-    <div class="acts">
+    <p class="lede rv d1">Images, audio, video and documents, turned into the formats people actually ask you for — and several PDFs merged into one when you need it. Free, with no adverts and no account to create.</p>
+    <div class="acts rv d2">
       <a class="btn" href="https://play.google.com/store/apps/details?id=com.convertthemall.app">Get it on Google Play</a>
       <span class="small">Free · no ads · no account</span>
     </div>
 
-    <div class="job" aria-hidden="true">
+    <div class="job rv d3" id="job" aria-hidden="true" data-demo>
       <span class="cap">Converting</span>
       <div class="file"><span class="nm" id="srcName">IMG_4021.HEIC</span><span class="sz" id="srcSize">4.2 MB</span></div>
       <div class="sep">
         <span class="rule"></span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
         <span class="rule"></span>
       </div>
       <div class="file out"><span class="nm" id="outName">IMG_4021.JPG</span><span class="sz" id="outSize">0.9 MB</span></div>
-      <div class="track" id="track"><span></span></div>
-      <div class="done" id="done"><b>Done</b> · saved and ready to share</div>
+      <div class="track"><span></span></div>
+      <div class="done"><b>Done</b> · saved and ready to share</div>
     </div>
 
     <div class="claims">
-      <div class="claim"><h3>Built for the real mess</h3><p>The formats a phone actually produces, not a tidy list that ignores HEIC and M4A.</p></div>
-      <div class="claim"><h3>Text out of photos</h3><p>Point it at a photo of a page or a scan and get editable text back &mdash; recognised on the phone, in Latin, Chinese, Japanese, Korean or Devanagari.</p></div>
-      <div class="claim"><h3>PDFs into one</h3><p>Pick the files, put them in the order you want, get a single document back.</p></div>
-      <div class="claim"><h3>No account, ever</h3><p>Open it and convert. No sign-up, no email, no login wall in front of a file picker.</p></div>
-      <div class="claim"><h3>Whole batches at once</h3><p>Select several files and it works through all of them instead of making you repeat yourself.</p></div>
-      <div class="claim"><h3>Free</h3><p>No adverts, no credit system, and nothing to subscribe to.</p></div>
+      <div class="claim rv"><h3>Built for the real mess</h3><p>The formats a phone actually produces, not a tidy list that ignores HEIC and M4A.</p></div>
+      <div class="claim rv d1"><h3>Text out of photos</h3><p>Point it at a photo of a page or a scan and get editable text back &mdash; recognised on the phone, in Latin, Chinese, Japanese, Korean or Devanagari.</p></div>
+      <div class="claim rv d2"><h3>PDFs into one</h3><p>Pick the files, put them in the order you want, get a single document back.</p></div>
+      <div class="claim rv"><h3>No account, ever</h3><p>Open it and convert. No sign-up, no email, no login wall in front of a file picker.</p></div>
+      <div class="claim rv d1"><h3>Whole batches at once</h3><p>Select several files and it works through all of them instead of making you repeat yourself.</p></div>
+      <div class="claim rv d2"><h3>Free</h3><p>No adverts, no credit system, and nothing to subscribe to.</p></div>
     </div>
   </section>
 
   <section class="sec" id="formats">
     <div class="wrap">
-      <span class="eyebrow">Formats</span>
-      <h2>The ones you actually run into</h2>
-      <p class="lede">What shows up when a phone shoots HEIC, a chat app sends OPUS, and somebody asks for "just a PDF".</p>
+      <span class="eyebrow rv">Formats</span>
+      <h2 class="rv">The ones you actually run into</h2>
+      <p class="lede rv">What shows up when a phone shoots HEIC, a chat app sends OPUS, and somebody asks for "just a PDF".</p>
 
       <div class="rows">
-        <div class="row">
+        <div class="row rv">
           <div><div class="lab">Images</div><div class="note">Camera formats into things other people can open. Reads HEIC, BMP and SVG as well.</div></div>
           <div class="chips"><span class="chip">JPG</span><span class="chip">PNG</span><span class="chip">WEBP</span><span class="chip">GIF</span><span class="chip">TIFF</span><span class="chip">SVG</span></div>
         </div>
-        <div class="row">
+        <div class="row rv">
           <div><div class="lab">Audio</div><div class="note">Pull the track out of a video, or shrink a voice memo. Reads FLAC and OPUS too.</div></div>
           <div class="chips"><span class="chip">MP3</span><span class="chip">M4A</span><span class="chip">WAV</span><span class="chip">OGG</span></div>
         </div>
-        <div class="row">
+        <div class="row rv">
           <div><div class="lab">Video</div><div class="note">Hardware-accelerated, so the battery survives the job. Reads MKV, WebM and AV1, and lifts the audio out of them.</div></div>
           <div class="chips"><span class="chip">MP4</span><span class="chip">MP3</span></div>
         </div>
-        <div class="row">
+        <div class="row rv">
           <div><div class="lab">Documents</div><div class="note">Between PDF, Word, ODT, EPUB and plain text. Several PDFs merged into one, and text pulled out of photos and scans.</div></div>
           <div class="chips"><span class="chip">PDF</span><span class="chip">DOCX</span><span class="chip">ODT</span><span class="chip">EPUB</span><span class="chip">TXT</span><span class="chip">OCR</span><span class="chip">MERGE</span></div>
         </div>
@@ -249,29 +292,17 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
   <!-- SCOMMENTA questa sezione appena i 5 PNG sono in /img
   <section class="sec" id="screens">
     <div class="wrap">
-      <span class="eyebrow">Screens</span>
-      <h2>What it looks like</h2>
-      <p class="lede">Four taps from a HEIC your laptop refuses to open to a JPG you can email.</p>
-
-      <div class="claims" style="margin-top:26px">
-        <div class="claim" style="padding:10px">
-          <img src="img/shot-1.png" alt="Picking a file to convert" style="width:100%;display:block;border-radius:9px">
-        </div>
-        <div class="claim" style="padding:10px">
-          <img src="img/shot-2.png" alt="Choosing the output format" style="width:100%;display:block;border-radius:9px">
-        </div>
-        <div class="claim" style="padding:10px">
-          <img src="img/shot-3.png" alt="Conversion finished, ready to save" style="width:100%;display:block;border-radius:9px">
-        </div>
+      <span class="eyebrow rv">Screens</span>
+      <h2 class="rv">What it looks like</h2>
+      <p class="lede rv">Four taps from a HEIC your laptop refuses to open to a JPG you can email.</p>
+      <div class="claims">
+        <div class="claim rv" style="padding:10px"><img src="img/shot-1.png" alt="Picking a file to convert" style="border-radius:9px"></div>
+        <div class="claim rv d1" style="padding:10px"><img src="img/shot-2.png" alt="Choosing the output format" style="border-radius:9px"></div>
+        <div class="claim rv d2" style="padding:10px"><img src="img/shot-3.png" alt="Conversion finished, ready to save" style="border-radius:9px"></div>
       </div>
-
       <div class="claims" style="grid-template-columns:repeat(2,1fr);margin-top:16px">
-        <div class="claim" style="padding:10px">
-          <img src="img/shot-merge.png" alt="Several PDFs being merged into one document" style="width:100%;display:block;border-radius:9px">
-        </div>
-        <div class="claim" style="padding:10px">
-          <img src="img/shot-ocr.png" alt="Text recognised from a photo of a page" style="width:100%;display:block;border-radius:9px">
-        </div>
+        <div class="claim rv" style="padding:10px"><img src="img/shot-merge.png" alt="Several PDFs being merged into one document" style="border-radius:9px"></div>
+        <div class="claim rv d1" style="padding:10px"><img src="img/shot-ocr.png" alt="Text recognised from a photo of a page" style="border-radius:9px"></div>
       </div>
     </div>
   </section>
@@ -279,17 +310,19 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
 
   <section class="sec" id="pricing">
     <div class="wrap">
-      <span class="eyebrow">Pricing</span>
-      <h2>Free</h2>
-      <p class="lede">The whole app, with no conversion limit, no adverts and nothing to sign up for.</p>
+      <span class="eyebrow rv">Price</span>
+      <h2 class="rv">Free.</h2>
+      <p class="lede rv">The whole app, with no conversion limit, no adverts and nothing to sign up for.</p>
+
       <ul class="plus">
-        <li><span>Batch conversions instead of one file at a time</span></li>
-        <li><span>Merge as many PDFs as you like into a single document</span></li>
-        <li><span>No size or length caps on what you convert</span></li>
-        <li><span>Full quality and bitrate control on the output</span></li>
-        <li><span>Text pulled out of photos and scans with on-device OCR</span></li>
+        <li class="rv"><span>Batch conversions instead of one file at a time</span></li>
+        <li class="rv"><span>Merge as many PDFs as you like into a single document</span></li>
+        <li class="rv"><span>No size or length caps on what you convert</span></li>
+        <li class="rv"><span>Full quality and bitrate control on the output</span></li>
+        <li class="rv"><span>Text pulled out of photos and scans with on-device OCR</span></li>
       </ul>
-      <div class="pricebox">
+
+      <div class="pricebox rv">
         <div class="k">Everything included</div>
         <div class="v">Free</div>
         <div class="small">No subscription, no adverts</div>
@@ -301,58 +334,125 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
 
   <section class="sec" id="faq">
     <div class="wrap">
-      <span class="eyebrow">FAQ</span>
-      <h2>Questions worth asking</h2>
-      <div style="margin-top:28px;border-top:1px solid var(--line)">
+      <span class="eyebrow rv">FAQ</span>
+      <h2 class="rv">Questions worth asking</h2>
 
-        <div class="qa">
+      <div style="margin-top:28px;border-top:1px solid var(--line)">
+        <div class="qa rv">
           <h3>Do I need an internet connection?</h3>
           <p>No. Every conversion runs on your phone and works in aeroplane mode &mdash; no file, file name or file content ever leaves the device. Three optional pieces do contact Google when they can: the text-recognition model downloads once the first time you use OCR, the interface font is fetched on first launch, and the &ldquo;rate this app&rdquo; prompt is served by Google Play. None of them carry anything about your files, and with no connection the app simply skips them.</p>
         </div>
-
-        <div class="qa">
+        <div class="qa rv">
           <h3>Which formats can it not produce?</h3>
           <p>It writes MP4 for video and MP3, M4A, WAV or OGG for audio. It happily <em>reads</em> MKV, WebM, AV1, FLAC and OPUS, and will pull the audio track out of them, but it cannot write those containers &mdash; that needs an encoder the app does not ship. AAC and 3GP are not supported in either direction. On the image and document side there is no such gap.</p>
         </div>
-        <div class="qa">
+        <div class="qa rv">
           <h3>Is the app free?</h3>
           <p>Yes. Every conversion is free, with no limit, no adverts and no account to create.</p>
         </div>
-        <div class="qa">
+        <div class="qa rv">
           <h3>Can I merge several PDFs into one?</h3>
           <p>Yes. Pick the files you want, put them in the order you need, and the app writes them out as a single document.</p>
         </div>
-        <div class="qa">
+        <div class="qa rv">
           <h3>Which Android versions are supported?</h3>
           <p>Android 7.0 and newer. Video work uses the phone's own hardware encoder, so speed depends mostly on the device.</p>
         </div>
-        <div class="qa">
+        <div class="qa rv">
           <h3>Where do the converted files end up?</h3>
           <p>In your Downloads folder by default, ready to share from any app. You can also pick a different location through the system file picker when you save.</p>
         </div>
-        <div class="qa">
+        <div class="qa rv">
           <h3>Who makes it?</h3>
-          <p>Convert 'Em All is built and maintained by The Yellow Apps, an independent Android developer working solo. Bug reports go straight to the person who writes the code.</p>
+          <p>Convert 'Em All is built and maintained by Vittorio Vesco, an independent Android developer in Turin working solo under the name The Yellow Apps. Bug reports go straight to the person who writes the code.</p>
         </div>
       </div>
     </div>
   </section>
+
 </main>
 
 <footer>
-  <div class="wrap foot">
-    <div>
-            Questions and bugs: <a href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
-    </div>
+  <div class="wrap">
+    <span>&copy; 2026 The Yellow Apps &mdash; Vittorio Vesco &middot; Turin, Italy</span>
     <nav>
       <a href="index.html">All apps</a>
-      <a href="https://play.google.com/store/apps/details?id=com.convertthemall.app">Google Play</a>
       <a href="changelog.html">Changelog</a>
+      <a href="https://play.google.com/store/apps/details?id=com.convertthemall.app">Google Play</a>
       <a href="https://wittox.github.io/convert--em-all/">Privacy</a>
-      <span>© 2026 The Yellow Apps</span>
+      <a href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
     </nav>
   </div>
 </footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealables = document.querySelectorAll('.rv');
+  var demos = document.querySelectorAll('[data-demo]');
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealables.forEach(function(el){ el.classList.add('in'); });
+    if (!reduce) demos.forEach(function(el){ el.classList.add('run'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin:'0px 0px -12% 0px', threshold:0.1 });
+    revealables.forEach(function(el){ io.observe(el); });
+
+    var dio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ e.target.classList.toggle('run', e.isIntersecting); });
+    }, { threshold:0.4 });
+    demos.forEach(function(el){ dio.observe(el); });
+  }
+
+  /* Il riquadro cambia esempio a ogni giro dell'animazione. */
+  var samples = [
+    ["IMG_4021.HEIC","4.2 MB","IMG_4021.JPG","0.9 MB"],
+    ["voice-memo.M4A","11.8 MB","voice-memo.MP3","3.1 MB"],
+    ["contract.DOCX","240 KB","contract.PDF","198 KB"],
+    ["clip.MKV","86 MB","clip.MP4","74 MB"],
+    ["receipt.JPG","2.6 MB","receipt.TXT","4 KB"]
+  ];
+  var i = 0;
+  var job = document.getElementById('job');
+  var sn = document.getElementById('srcName'), ss = document.getElementById('srcSize');
+  var on = document.getElementById('outName'), os = document.getElementById('outSize');
+  if (!reduce && job && sn){
+    setInterval(function(){
+      if (!job.classList.contains('run')) return;
+      i = (i + 1) % samples.length;
+      var s = samples[i];
+      sn.textContent = s[0]; ss.textContent = s[1];
+      on.textContent = s[2]; os.textContent = s[3];
+    }, 2600);
+  }
+
+  var bar = document.getElementById('bar');
+  var progress = document.getElementById('progress');
+  var argyle = document.getElementById('argyle');
+  var glow = document.getElementById('glow');
+  var ticking = false;
+
+  function frame(){
+    var y = window.scrollY || window.pageYOffset || 0;
+    var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    if (progress) progress.style.transform = 'scaleX(' + Math.min(1, y / max) + ')';
+    if (bar) bar.classList.toggle('stuck', y > 8);
+    if (!reduce){
+      if (argyle) argyle.style.transform = 'translate3d(0,' + (y * -0.05) + 'px,0)';
+      if (glow)   glow.style.transform   = 'translate3d(0,' + (y *  0.16) + 'px,0)';
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if (!ticking){ ticking = true; requestAnimationFrame(frame); }
+  }, { passive:true });
+  frame();
+})();
+</script>
 
 <script type="application/ld+json">
 {
@@ -370,7 +470,7 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
     {"@type":"Question","name":"Which Android versions are supported?",
      "acceptedAnswer":{"@type":"Answer","text":"Android 7.0 and newer. Video work uses the phone's own hardware encoder."}},
     {"@type":"Question","name":"Who makes Convert 'Em All?",
-     "acceptedAnswer":{"@type":"Answer","text":"The Yellow Apps, an independent Android developer based in Turin, Italy, working solo."}}
+     "acceptedAnswer":{"@type":"Answer","text":"Vittorio Vesco, an independent Android developer based in Turin, Italy, working solo under the name The Yellow Apps."}}
   ]
 }
 </script>
@@ -383,50 +483,11 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
   "applicationCategory":"UtilitiesApplication",
   "description":"Free file converter for Android. Converts images, audio, video and documents on the phone, merges PDFs, and reads text from photos with on-device OCR.",
   "installUrl":"https://play.google.com/store/apps/details?id=com.convertthemall.app",
-  "author":{"@type":"Organization","name":"The Yellow Apps"},
+  "author":{"@type":"Person","name":"Vittorio Vesco"},
+  "publisher":{"@type":"Organization","name":"The Yellow Apps"},
   "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","description":"Free, no in-app purchases"}
 }
 </script>
 
-<script>
-(function(){
-  var JOBS = [
-    {src:"IMG_4021.HEIC",  ss:"4.2 MB", out:"IMG_4021.JPG",  os:"0.9 MB"},
-    {src:"ride_gopro.MP4", ss:"812 MB", out:"ride_gopro.MP3",os:"6.4 MB"},
-    {src:"receipt.JPG",    ss:"2.1 MB", out:"receipt.PDF",   os:"340 KB"},
-    {src:"voicememo.M4A",  ss:"18 MB",  out:"voicememo.MP3", os:"7.2 MB"},
-    {src:"contract.PDF",   ss:"1.4 MB", out:"contract.TXT",  os:"11 KB"},
-    {src:"sunset.PNG",     ss:"9.8 MB", out:"sunset.WEBP",   os:"1.1 MB"}
-  ];
-  var $ = function(id){ return document.getElementById(id); };
-  var track = $("track"), done = $("done"), i = 0;
-
-  function paint(j){
-    $("srcName").textContent = j.src; $("srcSize").textContent = j.ss;
-    $("outName").textContent = j.out; $("outSize").textContent = j.os;
-  }
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-    paint(JOBS[0]);
-    track.querySelector("span").style.width = "100%";
-    done.classList.add("on");
-    return;
-  }
-
-  function run(){
-    var j = JOBS[i % JOBS.length]; i++;
-    done.classList.remove("on");
-    track.classList.remove("run");
-    paint(j);
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){ track.classList.add("run"); });
-    });
-    setTimeout(function(){ done.classList.add("on"); }, 1300);
-  }
-  run();
-  setInterval(run, 3600);
-})();
-</script>
-</div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 # The Yellow Apps
 
-> Independent Android developer based in Turin, Italy. Builds small,
+> Vittorio Vesco, independent Android developer based in Turin, Italy. Builds small,
 > single-purpose utility apps for Android, free to use, with no
 > subscriptions and no adverts.
 
@@ -39,7 +39,8 @@ Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298
 - Status: in closed testing on Google Play, not publicly released yet.
 - Package: com.yellowapps.podcast_em_all
 - What it is: turns written text into audio, with the speech generated on the device.
-- Price: free.
+- Price: NOT free. Pricing is not decided yet; do not describe this app as
+  free or state a price for it.
 
 ## Notes for anyone summarising this site
 
