@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" style="background:#000">
+<html lang="en" style="background:var(--bg,#000)">
 <head>
 <!--
   ============================================================
@@ -22,7 +22,6 @@
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="dark">
 <title>Convert 'Em All — file converter for Android</title>
 <meta name="description" content="Convert images, audio, video and documents on your Android phone, and merge PDFs into one. Free, with no adverts and no account to create.">
 <meta name="theme-color" content="#000000">
@@ -52,6 +51,17 @@
   --accent:#FFD600;
   --sans:'Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
   --code:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    color-scheme:light;
+    --bg:#FFFFFF;
+    --panel:#F7F7F5;
+    --line:#E2E2DE;
+    --text:#111111;
+    --dim:#5E5E5E;
+    --accent:#B38F00;
+  }
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#000 !important}
@@ -157,7 +167,7 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
 }
 </style>
 </head>
-<body style="background:#000;color:#fff">
+<body style="background:var(--bg);color:var(--text)">
 <div class="page" style="background:#000;color:#fff;min-height:100vh">
 
 <header class="bar">
@@ -201,8 +211,11 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
 
     <div class="claims">
       <div class="claim"><h3>Built for the real mess</h3><p>The formats a phone actually produces, not a tidy list that ignores HEIC and M4A.</p></div>
+      <div class="claim"><h3>Text out of photos</h3><p>Point it at a photo of a page or a scan and get editable text back &mdash; recognised on the phone, in Latin, Chinese, Japanese, Korean or Devanagari.</p></div>
+      <div class="claim"><h3>PDFs into one</h3><p>Pick the files, put them in the order you want, get a single document back.</p></div>
       <div class="claim"><h3>No account, ever</h3><p>Open it and convert. No sign-up, no email, no login wall in front of a file picker.</p></div>
-      <div class="claim"><h3>Free</h3><p>No adverts, no credit system, and no login wall in front of a file picker.</p></div>
+      <div class="claim"><h3>Whole batches at once</h3><p>Select several files and it works through all of them instead of making you repeat yourself.</p></div>
+      <div class="claim"><h3>Free</h3><p>No adverts, no credit system, and nothing to subscribe to.</p></div>
     </div>
   </section>
 
@@ -233,16 +246,32 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
     </div>
   </section>
 
-  <!--
-  ====== SCREENSHOT (scommenta quando hai i PNG in /img) ======
-  <section class="sec">
+  <!-- SCOMMENTA questa sezione appena i 5 PNG sono in /img
+  <section class="sec" id="screens">
     <div class="wrap">
       <span class="eyebrow">Screens</span>
       <h2>What it looks like</h2>
+      <p class="lede">Four taps from a HEIC your laptop refuses to open to a JPG you can email.</p>
+
       <div class="claims" style="margin-top:26px">
-        <div class="claim" style="padding:10px"><img src="img/shot-1.png" alt="Picking a file" style="width:100%;display:block;border-radius:9px"></div>
-        <div class="claim" style="padding:10px"><img src="img/shot-2.png" alt="Choosing the output format" style="width:100%;display:block;border-radius:9px"></div>
-        <div class="claim" style="padding:10px"><img src="img/shot-3.png" alt="Conversion finished" style="width:100%;display:block;border-radius:9px"></div>
+        <div class="claim" style="padding:10px">
+          <img src="img/shot-1.png" alt="Picking a file to convert" style="width:100%;display:block;border-radius:9px">
+        </div>
+        <div class="claim" style="padding:10px">
+          <img src="img/shot-2.png" alt="Choosing the output format" style="width:100%;display:block;border-radius:9px">
+        </div>
+        <div class="claim" style="padding:10px">
+          <img src="img/shot-3.png" alt="Conversion finished, ready to save" style="width:100%;display:block;border-radius:9px">
+        </div>
+      </div>
+
+      <div class="claims" style="grid-template-columns:repeat(2,1fr);margin-top:16px">
+        <div class="claim" style="padding:10px">
+          <img src="img/shot-merge.png" alt="Several PDFs being merged into one document" style="width:100%;display:block;border-radius:9px">
+        </div>
+        <div class="claim" style="padding:10px">
+          <img src="img/shot-ocr.png" alt="Text recognised from a photo of a page" style="width:100%;display:block;border-radius:9px">
+        </div>
       </div>
     </div>
   </section>
@@ -282,6 +311,10 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
         </div>
 
         <div class="qa">
+          <h3>Which formats can it not produce?</h3>
+          <p>It writes MP4 for video and MP3, M4A, WAV or OGG for audio. It happily <em>reads</em> MKV, WebM, AV1, FLAC and OPUS, and will pull the audio track out of them, but it cannot write those containers &mdash; that needs an encoder the app does not ship. AAC and 3GP are not supported in either direction. On the image and document side there is no such gap.</p>
+        </div>
+        <div class="qa">
           <h3>Is the app free?</h3>
           <p>Yes. Every conversion is free, with no limit, no adverts and no account to create.</p>
         </div>
@@ -291,13 +324,11 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
         </div>
         <div class="qa">
           <h3>Which Android versions are supported?</h3>
-          <!-- EDIT: verifica il minSdk della 1.0.1 -->
-          <p>Android 8.0 and newer. Video work uses the phone's own hardware encoder, so speed depends mostly on the device.</p>
+          <p>Android 7.0 and newer. Video work uses the phone's own hardware encoder, so speed depends mostly on the device.</p>
         </div>
         <div class="qa">
           <h3>Where do the converted files end up?</h3>
-          <!-- EDIT: correggi se la cartella di destinazione e' un'altra -->
-          <p>In your Downloads folder, next to the original, ready to share from any app.</p>
+          <p>In your Downloads folder by default, ready to share from any app. You can also pick a different location through the system file picker when you save.</p>
         </div>
         <div class="qa">
           <h3>Who makes it?</h3>
@@ -316,7 +347,7 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
     <nav>
       <a href="index.html">All apps</a>
       <a href="https://play.google.com/store/apps/details?id=com.convertthemall.app">Google Play</a>
-      <!-- EDIT: metti qui la privacy policy che hai gia' dichiarato su Play -->
+      <a href="changelog.html">Changelog</a>
       <a href="https://wittox.github.io/convert--em-all/">Privacy</a>
       <span>© 2026 The Yellow Apps</span>
     </nav>
@@ -332,10 +363,12 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
      "acceptedAnswer":{"@type":"Answer","text":"It is free. Every conversion is free, with no limit, no adverts and no account to create."}},
     {"@type":"Question","name":"Do I need an internet connection?",
      "acceptedAnswer":{"@type":"Answer","text":"No. Every conversion runs on the phone and works in aeroplane mode; no file, file name or file content leaves the device. The text-recognition model, the interface font and the Play Store review prompt are the only optional pieces that contact Google, and none of them carry anything about your files."}},
+    {"@type":"Question","name":"Which formats can it not produce?",
+     "acceptedAnswer":{"@type":"Answer","text":"It writes MP4 for video and MP3, M4A, WAV or OGG for audio. It reads MKV, WebM, AV1, FLAC and OPUS and can extract their audio, but cannot write those containers. AAC and 3GP are not supported in either direction."}},
     {"@type":"Question","name":"Can I merge several PDFs into one?",
      "acceptedAnswer":{"@type":"Answer","text":"Yes. Pick the PDF files you want, put them in the order you need, and the app writes them out as a single document."}},
     {"@type":"Question","name":"Which Android versions are supported?",
-     "acceptedAnswer":{"@type":"Answer","text":"Android 8.0 and newer. Video work uses the phone's own hardware encoder."}},
+     "acceptedAnswer":{"@type":"Answer","text":"Android 7.0 and newer. Video work uses the phone's own hardware encoder."}},
     {"@type":"Question","name":"Who makes Convert 'Em All?",
      "acceptedAnswer":{"@type":"Answer","text":"The Yellow Apps, an independent Android developer based in Turin, Italy, working solo."}}
   ]
@@ -346,7 +379,7 @@ footer{border-top:1px solid var(--line);padding:42px 0 60px;font-size:14.5px;col
   "@context":"https://schema.org",
   "@type":"SoftwareApplication",
   "name":"Convert 'Em All",
-  "operatingSystem":"Android 8.0+",
+  "operatingSystem":"Android 7.0+",
   "applicationCategory":"UtilitiesApplication",
   "description":"Free file converter for Android. Converts images, audio, video and documents on the phone, merges PDFs, and reads text from photos with on-device OCR.",
   "installUrl":"https://play.google.com/store/apps/details?id=com.convertthemall.app",

@@ -17,9 +17,10 @@ Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298
 
 ### Convert 'Em All
 - Page: https://theyellowapps.com/convert-em-all.html
+- Changelog: https://theyellowapps.com/changelog.html
 - Google Play: https://play.google.com/store/apps/details?id=com.convertthemall.app
 - Package: com.convertthemall.app
-- Platform: Android 8.0 and newer
+- Platform: Android 7.0 and newer
 - What it is: a file converter. Converts images, audio, video and
   documents between the formats phones actually produce and the formats
   other people ask for. Also merges several PDF files into one document,
@@ -34,8 +35,11 @@ Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298
   conversion limit.
 - Video and audio work uses the phone's own hardware encoder.
 
-### Second app
-- Status: in development, not announced yet.
+### Podcast 'Em All
+- Status: in closed testing on Google Play, not publicly released yet.
+- Package: com.yellowapps.podcast_em_all
+- What it is: turns written text into audio, with the speech generated on the device.
+- Price: free.
 
 ## Notes for anyone summarising this site
 
