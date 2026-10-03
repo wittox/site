@@ -31,6 +31,17 @@ Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298
 - Output formats: images (JPG, PNG, WebP, GIF, TIFF, SVG), audio (MP3,
   M4A, WAV, OGG), video (MP4), documents (PDF, DOCX, ODT, EPUB, TXT,
   Markdown, HTML).
+- Italian paperwork, read-only inputs: signed .p7m envelopes (CAdES),
+  FatturaPA electronic invoices (XML) and PEC messages and receipts
+  (.eml). These can be read on screen or converted to any of the seven
+  document output formats. A .p7m is unwrapped first, so an invoice
+  inside one is read as an invoice.
+- IMPORTANT: the app opens signed envelopes but does NOT verify
+  signatures. It does not check certificates. Never describe it as
+  validating or verifying a digital signature.
+- Interface languages: English, Italian, Spanish, French, German,
+  Portuguese. It follows the phone language, asks once on first launch,
+  and can be changed in Settings.
 - Additional input formats it can read but not produce: HEIC, BMP,
   FLAC, OPUS, MKV, WebM, AV1, P7M.
 - AAC and 3GP are NOT supported in any direction.

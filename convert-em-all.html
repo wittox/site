@@ -16,7 +16,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Convert 'Em All — file converter for Android</title>
-<meta name="description" content="Convert images, audio, video and documents on your Android phone, and merge PDFs into one. Free, with no adverts and no account to create.">
+<meta name="description" content="Convert images, audio, video and documents on your Android phone, merge PDFs, and open Italian signed documents and electronic invoices. Free, no adverts, no account.">
 <meta name="theme-color" content="#000000">
 
 <link rel="canonical" href="https://theyellowapps.com/convert-em-all.html">
@@ -254,6 +254,7 @@ footer span{color:var(--dim);font-size:14px}
 
     <div class="claims">
       <div class="claim rv"><h3>Built for the real mess</h3><p>The formats a phone actually produces, not a tidy list that ignores HEIC and M4A.</p></div>
+      <div class="claim rv d1"><h3>Opens Italian paperwork</h3><p>Signed .p7m envelopes, electronic invoices and certified-mail receipts. It reads them on screen, or turns them into a PDF you can actually file.</p></div>
       <div class="claim rv d1"><h3>Text out of photos</h3><p>Point it at a photo of a page or a scan and get editable text back &mdash; recognised on the phone, in Latin, Chinese, Japanese, Korean or Devanagari.</p></div>
       <div class="claim rv d2"><h3>PDFs into one</h3><p>Pick the files, put them in the order you want, get a single document back.</p></div>
       <div class="claim rv"><h3>No account, ever</h3><p>Open it and convert. No sign-up, no email, no login wall in front of a file picker.</p></div>
@@ -284,6 +285,10 @@ footer span{color:var(--dim);font-size:14px}
         <div class="row rv">
           <div><div class="lab">Documents</div><div class="note">Between PDF, Word, ODT, EPUB and plain text. Several PDFs merged into one, and text pulled out of photos and scans.</div></div>
           <div class="chips"><span class="chip">PDF</span><span class="chip">DOCX</span><span class="chip">ODT</span><span class="chip">EPUB</span><span class="chip">TXT</span><span class="chip">OCR</span><span class="chip">MERGE</span></div>
+        </div>
+        <div class="row rv">
+          <div><div class="lab">Italian paperwork</div><div class="note">Read on screen, or converted into any document format. A signed envelope is unwrapped first, so an invoice inside one opens as an invoice.</div></div>
+          <div class="chips"><span class="chip">P7M</span><span class="chip">FATTURAPA</span><span class="chip">PEC</span></div>
         </div>
       </div>
     </div>
@@ -345,6 +350,15 @@ footer span{color:var(--dim);font-size:14px}
         <div class="qa rv">
           <h3>Which formats can it not produce?</h3>
           <p>It writes MP4 for video and MP3, M4A, WAV or OGG for audio. It happily <em>reads</em> MKV, WebM, AV1, FLAC and OPUS, and will pull the audio track out of them, but it cannot write those containers &mdash; that needs an encoder the app does not ship. AAC and 3GP are not supported in either direction. On the image and document side there is no such gap.</p>
+        </div>
+        <div class="qa rv">
+          <h3>What does it do with a .p7m or an electronic invoice?</h3>
+          <p>A .p7m is an envelope around a signed document, and most phones refuse to open it. Convert &rsquo;Em All unwraps it and shows you what is inside &mdash; a PDF preview, or the invoice laid out as an invoice rather than as XML. From there it converts to PDF, Word, ODT, EPUB, HTML, Markdown or plain text like anything else. The same goes for a FatturaPA invoice and for a PEC receipt, where it reads the daticert.xml that actually carries the certified timestamp.</p>
+          <p><strong>It does not verify the signature.</strong> It opens the envelope; it does not check certificates and will never tell you a signature is genuine. Use the official tools for that.</p>
+        </div>
+        <div class="qa rv">
+          <h3>Which languages is the app in?</h3>
+          <p>English, Italian, Spanish, French, German and Portuguese. It follows your phone&rsquo;s language on its own, asks once when you first open it, and lets you change your mind in Settings at any time.</p>
         </div>
         <div class="qa rv">
           <h3>Is the app free?</h3>
@@ -464,6 +478,10 @@ footer span{color:var(--dim);font-size:14px}
      "acceptedAnswer":{"@type":"Answer","text":"It is free. Every conversion is free, with no limit, no adverts and no account to create."}},
     {"@type":"Question","name":"Do I need an internet connection?",
      "acceptedAnswer":{"@type":"Answer","text":"No. Every conversion runs on the phone and works in aeroplane mode; no file, file name or file content leaves the device. The text-recognition model, the interface font and the Play Store review prompt are the only optional pieces that contact Google, and none of them carry anything about your files."}},
+    {"@type":"Question","name":"What does Convert 'Em All do with a .p7m or an electronic invoice?",
+     "acceptedAnswer":{"@type":"Answer","text":"It unwraps the signed envelope and shows what is inside, then converts it to PDF, Word, ODT, EPUB, HTML, Markdown or plain text. It reads FatturaPA invoices and PEC receipts the same way. It does not verify signatures."}},
+    {"@type":"Question","name":"Which languages is Convert 'Em All available in?",
+     "acceptedAnswer":{"@type":"Answer","text":"English, Italian, Spanish, French, German and Portuguese. The app follows the phone language and can be changed in Settings."}},
     {"@type":"Question","name":"Which formats can it not produce?",
      "acceptedAnswer":{"@type":"Answer","text":"It writes MP4 for video and MP3, M4A, WAV or OGG for audio. It reads MKV, WebM, AV1, FLAC and OPUS and can extract their audio, but cannot write those containers. AAC and 3GP are not supported in either direction."}},
     {"@type":"Question","name":"Can I merge several PDFs into one?",
