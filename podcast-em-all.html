@@ -1,25 +1,11 @@
 <!doctype html>
-<html lang="en" style="background:var(--bg,#000)">
+<html lang="en">
 <head>
-<!--
-  ============================================================
-  PODCAST 'EM ALL — pagina app
-  ------------------------------------------------------------
-  Stesso sistema visivo della home e di convert-em-all.html.
-
-  ATTENZIONE alla sezione "Where the work happens": il TTS e'
-  on-device, ma il copione lo scrive un LLM su backend. Non
-  scrivere che l'app funziona interamente offline.
-
-  PREZZO: piani mensili Base/Plus/Max, vedi sezione #pricing.
-  ============================================================
--->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Podcast 'Em All — documents you can listen to</title>
 <meta name="description" content="Turns PDFs, Word documents, text files and web articles into a spoken reading or a two-host podcast, in six languages, on Android.">
-<meta name="theme-color" content="#000000">
-
+<meta name="theme-color" content="#FAF8EF">
 <link rel="canonical" href="https://theyellowapps.com/podcast-em-all.html">
 <link rel="icon" href="img/podcast-em-all.png">
 <meta property="og:type" content="website">
@@ -28,482 +14,192 @@
 <meta property="og:description" content="PDFs, Word documents and articles turned into a reading or a two-host podcast, in six languages.">
 <meta property="og:image" content="https://theyellowapps.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  color-scheme:dark;
-  --bg:#000000;
-  --panel:#0C0C0C;
-  --line:#262626;
-  --text:#FFFFFF;
-  --dim:#9A9A9A;
-  --accent:#FFD600;
-  --on-accent:#000000;
-  --sans:'Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  --code:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-}
-@media (prefers-color-scheme: light){
-  :root:not([data-theme="dark"]){
-    color-scheme:light;
-    --bg:#FFFFFF;
-    --panel:#F7F7F5;
-    --line:#E2E2DE;
-    --text:#111111;
-    --dim:#5E5E5E;
-    --accent:#B38F00;
-    --on-accent:#FFFFFF;
-  }
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;
-  line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{color:inherit}
-img{max-width:100%;display:block}
-
-.argyle{position:fixed;inset:-10% 0;z-index:0;pointer-events:none;opacity:.55;
-  background:repeating-conic-gradient(from 45deg at 50% 50%,
-    var(--panel) 0deg 90deg, transparent 90deg 180deg);
-  background-size:72px 72px;will-change:transform}
-.glow{position:fixed;z-index:0;pointer-events:none;width:60vmax;height:60vmax;
-  left:50%;top:-22vmax;margin-left:-30vmax;
-  background:radial-gradient(circle, color-mix(in srgb, var(--accent) 13%, transparent) 0%, transparent 62%);
-  will-change:transform}
-.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;
-  background:var(--accent);transform:scaleX(0);transform-origin:0 50%}
-
-.wrap{max-width:1040px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
-.sec{padding:clamp(66px,10vw,118px) 0;position:relative;z-index:2}
-.eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--accent)}
-h2{font-size:clamp(27px,4.4vw,45px);font-weight:900;letter-spacing:-.035em;line-height:1.07;margin-top:14px}
-.lede{color:var(--dim);max-width:62ch;margin-top:16px;font-size:clamp(16px,1.7vw,18.5px)}
-.small{color:var(--dim);font-size:14.5px}
-
-.bar{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
-  background:color-mix(in srgb, var(--bg) 78%, transparent);
-  border-bottom:1px solid transparent;transition:border-color .3s ease}
-.bar.stuck{border-bottom-color:var(--line)}
-.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em;text-decoration:none}
-.brand img{width:26px;height:26px;border-radius:23%;object-fit:cover}
-.bar nav{display:flex;gap:22px;font-size:14.5px;font-weight:600}
-.bar nav a{text-decoration:none;color:var(--dim);transition:color .2s}
-.bar nav a:hover{color:var(--accent)}
-@media(max-width:700px){.bar nav{display:none}}
-
-.hero{padding:clamp(56px,9vw,104px) 0 clamp(40px,6vw,66px);position:relative;z-index:2}
-.id{display:flex;align-items:center;gap:20px}
-.id img{width:84px;height:84px;border-radius:23%;object-fit:cover;flex:none;
-  box-shadow:0 0 0 1px color-mix(in srgb, var(--text) 10%, transparent), 0 10px 26px rgba(0,0,0,.4)}
-.id h1{font-size:clamp(32px,6vw,58px);font-weight:900;letter-spacing:-.04em;line-height:1}
-.id .sub{color:var(--dim);font-size:15.5px;font-weight:600;margin-top:5px}
-.status{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:800;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:22px}
-.status i{width:8px;height:8px;border-radius:50%;background:#4A4A4A;flex:none}
-.acts{display:flex;flex-wrap:wrap;gap:13px;align-items:center;margin-top:26px}
-.btn{display:inline-block;text-decoration:none;background:var(--accent);color:var(--on-accent);
-  font-weight:800;padding:13px 22px;border-radius:11px;font-size:15.5px;
-  transition:transform .2s cubic-bezier(.2,.9,.3,1.2), filter .2s}
-.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
-.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);font-weight:700}
-.btn.ghost:hover{border-color:var(--accent);color:var(--accent);filter:none;transform:translateY(-2px)}
-
-/* riquadro: documento che diventa audio */
-.job{margin-top:44px;max-width:430px;background:var(--panel);border:1px solid var(--line);
-  border-radius:18px;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.34)}
-.job .cap{font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
-.file{display:flex;justify-content:space-between;gap:14px;align-items:baseline;
-  border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-top:13px;background:var(--bg)}
-.file .nm{font-family:var(--code);font-size:13.5px;font-weight:700;word-break:break-all}
-.file .sz{font-size:12.5px;color:var(--dim);flex:none}
-.file.out{border-color:color-mix(in srgb, var(--accent) 50%, var(--line))}
-.file.out .nm{color:var(--accent)}
-.sep{display:flex;align-items:center;gap:11px;color:var(--accent);margin:11px 2px}
-.sep .rule{height:1px;background:var(--line);flex:1}
-.job.run .sep svg{animation:down 1.5s ease-in-out infinite}
-@keyframes down{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
-
-/* onda audio */
-.wave{display:flex;align-items:flex-end;gap:4px;height:38px;margin-top:17px}
-.wave span{flex:1;background:var(--line);border-radius:99px;height:22%}
-.job.run .wave span{background:var(--accent);animation:bounce 1.15s ease-in-out infinite}
-.job.run .wave span:nth-child(2){animation-delay:.08s}
-.job.run .wave span:nth-child(3){animation-delay:.16s}
-.job.run .wave span:nth-child(4){animation-delay:.24s}
-.job.run .wave span:nth-child(5){animation-delay:.32s}
-.job.run .wave span:nth-child(6){animation-delay:.40s}
-.job.run .wave span:nth-child(7){animation-delay:.48s}
-.job.run .wave span:nth-child(8){animation-delay:.56s}
-.job.run .wave span:nth-child(9){animation-delay:.64s}
-.job.run .wave span:nth-child(10){animation-delay:.72s}
-.job.run .wave span:nth-child(11){animation-delay:.80s}
-.job.run .wave span:nth-child(12){animation-delay:.88s}
-@keyframes bounce{0%,100%{height:18%}50%{height:100%}}
-.done{margin-top:13px;font-size:13.5px;color:var(--dim)}
-.done b{color:var(--text)}
-
-.claims{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:42px}
-@media(max-width:860px){.claims{grid-template-columns:1fr}}
-.claim{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--panel);
-  transition:border-color .35s ease, transform .35s ease}
-.claim:hover{border-color:color-mix(in srgb, var(--accent) 40%, var(--line));transform:translateY(-3px)}
-.claim h3{font-size:16.5px;font-weight:800;letter-spacing:-.015em}
-.claim p{color:var(--dim);font-size:14.5px;margin-top:9px}
-
-/* passaggi */
-.steps{margin-top:34px;border-top:1px solid var(--line)}
-.step{display:grid;grid-template-columns:70px 1fr;gap:22px;padding:24px 0;border-bottom:1px solid var(--line)}
-@media(max-width:700px){.step{grid-template-columns:1fr;gap:8px}}
-.step .n{font-family:var(--code);font-size:26px;font-weight:800;color:var(--accent);line-height:1}
-.step h3{font-size:17.5px;font-weight:800;letter-spacing:-.015em}
-.step p{color:var(--dim);font-size:15px;margin-top:8px;max-width:70ch}
-
-.rows{margin-top:32px;border-top:1px solid var(--line)}
-.row{display:grid;grid-template-columns:230px 1fr;gap:22px;padding:22px 0;border-bottom:1px solid var(--line)}
-@media(max-width:760px){.row{grid-template-columns:1fr;gap:12px}}
-.row .lab{font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-.row .note{color:var(--dim);font-size:14.5px;margin-top:8px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
-.chip{font-family:var(--code);border:1px solid var(--line);border-radius:7px;padding:6px 11px;
-  font-size:13px;background:var(--panel);transition:border-color .3s ease,color .3s ease,transform .3s ease}
-.row:hover .chip{border-color:color-mix(in srgb, var(--accent) 45%, var(--line))}
-.chip:hover{color:var(--accent);transform:translateY(-2px)}
-
-.qa{border-bottom:1px solid var(--line);padding:24px 0}
-.qa h3{font-size:17.5px;font-weight:800;letter-spacing:-.015em}
-.qa p{color:var(--dim);font-size:15.5px;margin-top:9px;max-width:74ch}
-
-.note-box{border:1px solid var(--line);border-left:3px solid var(--accent);
-  border-radius:0 14px 14px 0;padding:22px 24px;margin-top:28px;background:var(--panel);max-width:74ch}
-.note-box h3{font-size:16.5px;font-weight:800}
-.note-box p{color:var(--dim);font-size:15px;margin-top:9px}
-
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
-@media(max-width:760px){.plans{grid-template-columns:1fr}}
-.plan{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--panel)}
-.plan.best{border-color:color-mix(in srgb, var(--accent) 55%, var(--line))}
-.plan .k{font-size:12.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-.plan .k em{color:var(--accent);font-style:normal}
-.plan .v{font-size:clamp(26px,3.4vw,34px);font-weight:900;letter-spacing:-.03em;margin:9px 0 3px}
-.plan .v small{font-size:14px;font-weight:600;color:var(--dim);letter-spacing:0}
-.plan p{color:var(--dim);font-size:14.5px;margin-top:5px}
-.plus{list-style:none;margin-top:30px;max-width:66ch}
-.plus li{padding:13px 0;border-bottom:1px solid var(--line);font-size:15.5px;display:flex;gap:12px}
-.plus li::before{content:"+";color:var(--accent);font-weight:800;flex:none}
-footer{border-top:1px solid var(--line);padding:46px 0;position:relative;z-index:2}
-footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
-footer nav{display:flex;flex-wrap:wrap;gap:20px;font-size:14.5px}
-footer a{color:var(--dim);text-decoration:none;transition:color .2s}
-footer a:hover{color:var(--accent)}
-footer span{color:var(--dim);font-size:14px}
-
-.rv{opacity:0;transform:translateY(26px);
-  transition:opacity .8s cubic-bezier(.2,.8,.25,1), transform .8s cubic-bezier(.2,.8,.25,1)}
-.rv.in{opacity:1;transform:none}
-.rv.d1{transition-delay:.09s}.rv.d2{transition-delay:.18s}.rv.d3{transition-delay:.27s}
-
-@media (prefers-reduced-motion: reduce){
-  html{scroll-behavior:auto}
-  .rv{opacity:1;transform:none;transition:none}
-  .argyle,.glow{transform:none !important}
-  .progress{display:none}
-  *,*::before,*::after{animation:none !important;transition:none !important}
-  .wave span{height:60%;background:var(--accent)}
-}
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<link rel="stylesheet" href="app.css">
 </head>
 <body>
+<div class="root motion-on">
+<div class="progress" aria-hidden="true"></div>
 
-<div class="argyle" id="argyle" aria-hidden="true"></div>
-<div class="glow" id="glow" aria-hidden="true"></div>
-<div class="progress" id="progress" aria-hidden="true"></div>
-
-<header class="bar" id="bar">
-  <div class="wrap">
-    <a class="brand" href="index.html"><img src="img/podcast-em-all.png" alt="">The Yellow Apps</a>
-    <nav>
-      <a href="#how">How it works</a>
-      <a href="#sources">Sources</a>
-      <a href="#pricing">Price</a>
-      <a href="#faq">FAQ</a>
-      <a href="changelog.html">Changelog</a>
-    </nav>
-  </div>
+<header class="nav">
+<div class="wrap nav-in">
+<a class="brand" href="index.html"><img src="img/podcast-em-all.png" alt="" width="34" height="34"><span>The Yellow Apps</span></a>
+<nav class="links" aria-label="Main">
+<a class="l" href="index.html#apps">Apps</a>
+<a class="l" href="#how">How it works</a>
+<a class="l" href="#price">Price</a>
+<a class="l" href="#faq">FAQ</a>
+<a class="l" href="convert-em-all.html">Convert 'Em All</a>
+<a class="mailnav mono" href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
+</nav>
+</div>
 </header>
 
-<main id="top">
+<main>
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<p class="crumb mono"><a href="index.html">The Yellow Apps</a> / Podcast 'Em All</p>
+<div class="app-id">
+<img src="img/podcast-em-all.png" alt="Podcast 'Em All icon" width="88" height="88">
+<span class="pill new mono"><span class="dot"></span>New · On Google Play</span>
+</div>
+<h1 class="display h1">Podcast <span class="hl">'Em All</span></h1>
+<p class="tag fade">Documents you can listen to.</p>
+<p class="lede fade">Give it a PDF, a Word document, a text file or the link to an article. It comes back either as a straight reading in one voice, or as a podcast where two hosts talk the thing through — in Italian, English, Spanish, French, Portuguese or German, at whatever depth you asked for.</p>
+<div class="ctas fade2">
+<a class="btn btn-y" href="https://play.google.com/store/apps/details?id=com.yellowapps.podcast_em_all">Get it on Google Play</a>
+<a class="btn btn-o" href="#how">How it works</a>
+</div>
+<p class="facts mono fade2">3 podcasts free · no ads · no account · needs a connection</p>
+</div>
 
-  <section class="wrap hero">
-    <div class="id rv">
-      <img src="img/podcast-em-all.png" alt="Podcast 'Em All app icon" width="84" height="84">
-      <div>
-        <h1>Podcast 'Em All</h1>
-        <div class="sub">Documents you can listen to</div>
-      </div>
-    </div>
-    <p class="lede rv d1">Give it a PDF, a Word document, a text file or the link to an article. It comes back either as a straight reading in one voice, or as a podcast where two hosts talk the thing through &mdash; in Italian, English, Spanish, French, Portuguese or German, at whatever depth you asked for.</p>
-    <div class="acts rv d2">
-      <a class="btn" href="https://play.google.com/store/apps/details?id=com.yellowapps.podcast_em_all">Get it on Google Play</a>
-      <span class="small">3 podcasts free · no ads · no account</span>
-    </div>
+<div class="demo fade2" role="img" aria-label="Animated example: a 28-page PDF becomes a two-host podcast in MP3">
+<div class="demo-top mono"><span>Generating</span><span class="live"><span class="dot"></span>Speaking</span></div>
+<div>
+<p class="slot-label mono">In</p>
+<div class="file mono">quarterly-report.pdf <small>28 pages</small></div>
+</div>
+<div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M5 13l7 7 7-7"/></svg></div>
+<div>
+<p class="slot-label mono">Out</p>
+<div class="file out mono">Podcast · two hosts <small style="color:#2A2A20">MP3</small></div>
+</div>
+<div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<p class="demo-foot mono">One line at a time, saved as it goes</p>
+</div>
+</div>
+</section>
 
-    <div class="job rv d3" id="job" aria-hidden="true" data-demo>
-      <span class="cap">Generating</span>
-      <div class="file"><span class="nm" id="srcName">quarterly-report.PDF</span><span class="sz" id="srcSize">28 pages</span></div>
-      <div class="sep">
-        <span class="rule"></span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
-        <span class="rule"></span>
-      </div>
-      <div class="file out"><span class="nm" id="outName">Podcast &middot; two hosts</span><span class="sz" id="outSize">MP3</span></div>
-      <div class="wave">
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-      </div>
-      <div class="done"><b>Speaking</b> &middot; one line at a time, saved as it goes</div>
-    </div>
+<div class="tape-wrap" aria-hidden="true">
+<div class="tape"><div class="track">
+<span>PDF → PODCAST</span><i>/</i><span>ARTICLE → READING</span><i>/</i><span>DOCX → MP3</span><i>/</i><span>IT EN ES FR PT DE</span><i>/</i>
+<span>PDF → PODCAST</span><i>/</i><span>ARTICLE → READING</span><i>/</i><span>DOCX → MP3</span><i>/</i><span>IT EN ES FR PT DE</span><i>/</i>
+</div></div>
+</div>
 
-    <div class="claims">
-      <div class="claim rv"><h3>A reading, or a conversation</h3><p>&ldquo;Read it&rdquo; gives you one voice and the text as it stands. &ldquo;Podcast&rdquo; casts two voices who discuss it instead. Same document, two very different listens.</p></div>
-      <div class="claim rv d1"><h3>Six languages, and it translates</h3><p>Italian, English, Spanish, French, Portuguese and German. Italian is the source language; pick any of the others and your sources are translated before they are spoken.</p></div>
-      <div class="claim rv d2"><h3>As deep as you want</h3><p>Overview for the gist, Balanced for the key points, In-depth for every detail. There is also a box for your own instructions on how it should be handled.</p></div>
-      <div class="claim rv"><h3>Several sources, one piece</h3><p>Add more than one document, or mix documents with a link, and they become a single listen rather than a queue of separate ones.</p></div>
-      <div class="claim rv d1"><h3>Keeps going without you</h3><p>Generation runs in an Android foreground service, so it carries on if you close the app and picks up after a reboot. Each finished line is written to disk as it is made, so a kill costs you one line at most.</p></div>
-      <div class="claim rv d2"><h3>Follow along, or take it with you</h3><p>The player highlights the line being spoken as it plays, at one of five speeds, and the finished piece exports to MP3.</p></div>
-    </div>
-  </section>
+<section class="sec" style="padding-top:40px">
+<div class="wrap">
+<div class="sec-head rv">
+<h2 class="display h2">What it's<br>good at.</h2>
+<p class="sub">Same document, two very different listens — and you can walk away while it works.</p>
+</div>
+<div class="feats">
+<article class="feat y rv"><span class="n mono">01</span><h3>A reading, or a conversation</h3><p>“Read it” gives you one voice and the text as it stands. “Podcast” casts two voices who discuss it instead.</p></article>
+<article class="feat rv"><span class="n mono">02</span><h3>Six languages, and it translates</h3><p>Italian, English, Spanish, French, Portuguese and German. Italian is the source language; pick any of the others and your sources are translated before they are spoken.</p></article>
+<article class="feat rv"><span class="n mono">03</span><h3>As deep as you want</h3><p>Overview for the gist, Balanced for the key points, In-depth for every detail. There is also a box for your own instructions.</p></article>
+<article class="feat rv"><span class="n mono">04</span><h3>Several sources, one piece</h3><p>Add more than one document, or mix documents with a link, and they become a single listen rather than a queue of separate ones.</p></article>
+<article class="feat rv"><span class="n mono">05</span><h3>Keeps going without you</h3><p>Generation carries on if you close the app and picks up after a reboot. Each finished line is saved as it is made, so a kill costs you one line at most.</p></article>
+<article class="feat rv"><span class="n mono">06</span><h3>Follow along, or take it with you</h3><p>The player highlights the line being spoken, at one of five speeds, and the finished piece exports to MP3.</p></article>
+</div>
+</div>
+</section>
 
-  <section class="sec" id="how">
-    <div class="wrap">
-      <span class="eyebrow rv">How it works</span>
-      <h2 class="rv">Four steps, and only one of them needs you.</h2>
+<section class="sec" id="how" style="padding-top:40px">
+<div class="wrap">
+<div class="sec-head rv">
+<div>
+<p class="eyebrow mono"><span class="dot"></span>How it works</p>
+<h2 class="display h2">Four steps. Only<br>one needs you.</h2>
+</div>
+</div>
+<div class="rows">
+<div class="row step rv"><span class="num">01</span><h3>Add your sources</h3><p>One or several: PDF, Word, plain text, Markdown, or a pasted link to an article. Choose the language, a reading or a podcast, and how deep it should go. There is a box for your own instructions, and a switch that lets it search the web for context around your sources.</p></div>
+<div class="row step rv"><span class="num">02</span><h3>A script is written</h3><p>Clean text is extracted from every source — for a link, the article is lifted out of the page without the navigation and the banners. A language model then turns it into a reading or a two-host dialogue in the language you picked, translating along the way if needed.</p></div>
+<div class="row step rv"><span class="num">03</span><h3>It's spoken, line by line</h3><p>Each line is synthesised and comes back as audio, then gets stitched into one track with the pauses in the right places. Every finished line is saved the moment it arrives, so the work survives a force-close, a flat battery or a restart.</p></div>
+<div class="row step rv"><span class="num">04</span><h3>Listen, or take it</h3><p>Finished pieces land in the library. Play them at the speed you like while the script scrolls along with the voice, or export to MP3 and put it wherever you keep your audio.</p></div>
+</div>
+<div class="note rv">
+<h3>Where the work happens</h3>
+<p>Worth being straight about, because the other app in this family does everything on the phone and this one does not. Podcast ’Em All needs a connection: the text of your sources is sent to a server, where the script is written and then spoken, one line at a time. What comes back to your phone is the audio. If you are working with documents you would not want leaving the device, <a href="convert-em-all.html">Convert ’Em All</a> is the one that never sends anything anywhere.</p>
+</div>
+</div>
+</section>
 
-      <div class="steps">
-        <div class="step rv">
-          <div class="n">01</div>
-          <div>
-            <h3>Add your sources</h3>
-            <p>One or several: PDF, Word, plain text, Markdown, or a pasted link to an article. Choose the language, whether you want a reading or a podcast, and how deep it should go. There is a box for your own instructions, and a switch that lets it search the web for context around your sources.</p>
-          </div>
-        </div>
-        <div class="step rv">
-          <div class="n">02</div>
-          <div>
-            <h3>The text is pulled out and a script is written</h3>
-            <p>Clean text is extracted from every source &mdash; for a link, the article is lifted out of the page without the navigation and the banners. A language model then turns it into a reading or a two-host dialogue in the language you picked, translating along the way if that is not the language the sources are written in.</p>
-          </div>
-        </div>
-        <div class="step rv">
-          <div class="n">03</div>
-          <div>
-            <h3>The script is spoken, line by line</h3>
-            <p>Each line is synthesised and comes back as audio, then gets stitched into one track with the pauses in the right places. Every finished line is saved the moment it arrives, so the work survives a force-close, a flat battery or a restart.</p>
-          </div>
-        </div>
-        <div class="step rv">
-          <div class="n">04</div>
-          <div>
-            <h3>Listen, or take it with you</h3>
-            <p>Finished pieces land in the library. Play them at the speed you like while the script scrolls along with the voice, or export to MP3 and put it wherever you keep your audio.</p>
-          </div>
-        </div>
-      </div>
+<section class="sec" id="sources" style="padding-top:40px">
+<div class="wrap">
+<div class="sec-head rv">
+<div>
+<p class="eyebrow mono"><span class="dot"></span>Sources and options</p>
+<h2 class="display h2">What you<br>can feed it.</h2>
+</div>
+</div>
+<div class="rows">
+<div class="row rv"><h3>Documents</h3><p>Picked from anywhere on the phone. Several at once become a single piece.</p><div class="chips mono"><span class="chip">PDF</span><span class="chip">DOCX</span><span class="chip">TXT</span><span class="chip">MD</span></div></div>
+<div class="row rv"><h3>The web</h3><p>Paste a link and the article is pulled out of the page. A separate switch lets it search the web for extra context around your sources.</p><div class="chips mono"><span class="chip">URL</span><span class="chip">WEB SEARCH</span></div></div>
+<div class="row rv"><h3>Languages</h3><p>Italian is the source language; everything else is translated first. English and Spanish have a female and a male voice, French a female only, Italian, Portuguese and German a male only.</p><div class="chips mono"><span class="chip">IT</span><span class="chip">EN</span><span class="chip">ES</span><span class="chip">FR</span><span class="chip">PT</span><span class="chip">DE</span></div></div>
+<div class="row rv"><h3>Shape</h3><p>How the script is written, and how much of the source it covers. The two-host podcast needs a language with two voices, so in French only the reading is available.</p><div class="chips mono"><span class="chip">READ IT</span><span class="chip">PODCAST</span><span class="chip">OVERVIEW</span><span class="chip">BALANCED</span><span class="chip">IN-DEPTH</span></div></div>
+<div class="row rv"><h3>Output</h3><p>Listen in the app with the script following along, or take the file with you.</p><div class="chips mono"><span class="chip">MP3</span><span class="chip">5 SPEEDS</span><span class="chip">TRANSCRIPT</span></div></div>
+</div>
+</div>
+</section>
 
-      <div class="note-box rv">
-        <h3>Where the work happens</h3>
-        <p>Worth being straight about, because the other app in this family does everything on the phone and this one does not. Podcast &rsquo;Em All needs a connection: the text of your sources is sent to a server, where the script is written and then spoken, one line at a time. What comes back to your phone is the audio. If you are working with documents you would not want leaving the device, this is the app where that matters &mdash; <a href="convert-em-all.html" style="color:var(--accent)">Convert &rsquo;Em All</a> is the one that never sends anything anywhere.</p>
-      </div>
-    </div>
-  </section>
+<section class="sec" id="price" style="padding-top:40px">
+<div class="wrap">
+<div class="sec-head rv">
+<div>
+<p class="eyebrow mono"><span class="dot"></span>Price</p>
+<h2 class="display h2">A monthly plan,<br>priced honestly.</h2>
+</div>
+<p class="sub">Writing a script and speaking it costs real money every time, so this app has a plan — priced to cover that, not to squeeze you.</p>
+</div>
+<div class="plans">
+<div class="plan rv"><span class="k mono">Base</span><span class="v">€0.99<small>/month</small></span><p>10 podcasts a month.</p></div>
+<div class="plan best rv"><span class="k mono">Plus · recommended</span><span class="v">€1.99<small>/month</small></span><p>30 podcasts a month.</p></div>
+<div class="plan rv"><span class="k mono">Max</span><span class="v">€2.99<small>/month</small></span><p>50 podcasts a month.</p></div>
+</div>
+<ul class="list rv">
+<li><span><b>Three podcasts free to start</b>, once, with no card and no plan</span></li>
+<li>Readings in the original language are always free and unlimited, plan or no plan</li>
+<li>A podcast that fails costs you nothing — only finished ones count</li>
+<li>One counter, no credits and no packs to buy on top</li>
+<li>Move up a plan and it applies at once; move down and it waits for the renewal</li>
+<li>No adverts, no tracking, and nothing collected about what you listen to</li>
+</ul>
+<p class="fine rv">Unused podcasts do not roll over to the next month. Plans are billed through Google Play and can be cancelled there at any time.</p>
+<div class="ctas rv" style="margin-top:28px"><a class="btn btn-k" href="https://play.google.com/store/apps/details?id=com.yellowapps.podcast_em_all">Get it on Google Play</a></div>
+</div>
+</section>
 
-  <section class="sec" id="sources">
-    <div class="wrap">
-      <span class="eyebrow rv">Sources and options</span>
-      <h2 class="rv">What you can feed it</h2>
+<section class="sec" id="faq" style="padding-top:40px">
+<div class="wrap">
+<div class="sec-head rv">
+<div>
+<p class="eyebrow mono"><span class="dot"></span>FAQ</p>
+<h2 class="display h2">Questions<br>worth asking.</h2>
+</div>
+</div>
+<div class="faq rv">
+<details><summary>Does it work offline?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>No, and this is the thing worth knowing before you install it. The text of your sources is sent to a server, where the script is written and then spoken; your phone receives the finished audio. Unlike Convert ’Em All, this app cannot do its job without a connection.</p></div></details>
+<details><summary>Is anything free?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>Two things. The first three podcasts, once, without a plan. And readings in the original language, which are free and unlimited forever — it is the translated readings and the two-host podcasts that count against a plan.</p></div></details>
+<details><summary>Why a subscription, when the other app is free?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>Because every podcast costs something to produce. Convert ’Em All runs entirely on your phone, so it costs nothing to give away. This one writes and speaks on a server, and a monthly plan is the honest way to cover that instead of pretending it is free and finding a worse way to pay for it.</p></div></details>
+<details><summary>What happens if I close the app?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>Nothing stops. Generation runs in an Android foreground service rather than in the screen you are looking at, and each finished line is written to disk as it arrives. Force-close it, or restart the phone, and it carries on from where it was.</p></div></details>
+<details><summary>Can I listen in a language my documents are not written in?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>Yes. Italian is the language sources are expected in; choose English, Spanish, French, Portuguese or German and the material is translated before it is spoken.</p></div></details>
+<details><summary>Who makes it?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>Vittorio Vesco, an independent Android developer in Turin working solo under the name The Yellow Apps — the same person behind Convert ’Em All. Questions and bug reports: <a href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>.</p></div></details>
+</div>
 
-      <div class="rows">
-        <div class="row rv">
-          <div><div class="lab">Documents</div><div class="note">Picked from anywhere on the phone. Several at once become a single piece.</div></div>
-          <div class="chips"><span class="chip">PDF</span><span class="chip">DOCX</span><span class="chip">TXT</span><span class="chip">MD</span></div>
-        </div>
-        <div class="row rv">
-          <div><div class="lab">The web</div><div class="note">Paste a link and the article is pulled out of the page. A separate switch lets it search the web for extra context around your sources.</div></div>
-          <div class="chips"><span class="chip">URL</span><span class="chip">WEB SEARCH</span></div>
-        </div>
-        <div class="row rv">
-          <div><div class="lab">Languages</div><div class="note">Italian is the source language; everything else is translated first. The voices differ by language: English and Spanish have a female and a male, French a female only, Italian, Portuguese and German a male only.</div></div>
-          <div class="chips"><span class="chip">IT</span><span class="chip">EN</span><span class="chip">ES</span><span class="chip">FR</span><span class="chip">PT</span><span class="chip">DE</span></div>
-        </div>
-        <div class="row rv">
-          <div><div class="lab">Shape</div><div class="note">How the script is written, and how much of the source it covers. The two-host podcast needs a language with two voices, so in French only the reading is available.</div></div>
-          <div class="chips"><span class="chip">READ IT</span><span class="chip">PODCAST</span><span class="chip">OVERVIEW</span><span class="chip">BALANCED</span><span class="chip">IN-DEPTH</span></div>
-        </div>
-        <div class="row rv">
-          <div><div class="lab">Output</div><div class="note">Listen in the app with the script following along, or take the file with you.</div></div>
-          <div class="chips"><span class="chip">MP3</span><span class="chip">5 SPEEDS</span><span class="chip">TRANSCRIPT</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="pricing">
-    <div class="wrap">
-      <span class="eyebrow rv">Price</span>
-      <h2 class="rv">A monthly plan, because the work is not free to run.</h2>
-      <p class="lede rv">Writing a script and speaking it costs real money every time. This app cannot follow the one-time rule the rest of the family does, so it is priced to be honest about that rather than to squeeze you.</p>
-
-      <div class="plans">
-        <div class="plan rv">
-          <div class="k">Base</div>
-          <div class="v">&euro;0.99<small>/month</small></div>
-          <p>10 podcasts a month.</p>
-        </div>
-        <div class="plan best rv d1">
-          <div class="k">Plus <em>&middot; recommended</em></div>
-          <div class="v">&euro;1.99<small>/month</small></div>
-          <p>30 podcasts a month.</p>
-        </div>
-        <div class="plan rv d2">
-          <div class="k">Max</div>
-          <div class="v">&euro;2.99<small>/month</small></div>
-          <p>50 podcasts a month.</p>
-        </div>
-      </div>
-
-      <ul class="plus">
-        <li class="rv"><span><strong>Three podcasts free to start</strong>, once, with no card and no plan</span></li>
-        <li class="rv"><span><strong>Readings in the original language are always free</strong> and unlimited, plan or no plan</span></li>
-        <li class="rv"><span>A podcast that fails costs you nothing &mdash; only finished ones count</span></li>
-        <li class="rv"><span>One counter, no credits and no packs to buy on top</span></li>
-        <li class="rv"><span>Move up a plan and it applies at once; move down and it waits for the renewal</span></li>
-        <li class="rv"><span>No adverts, no tracking, and nothing collected about what you listen to</span></li>
-      </ul>
-      <p class="small rv" style="margin-top:20px">Unused podcasts do not roll over to the next month. Plans are billed through Google Play and can be cancelled there at any time.</p>
-      <div class="acts rv"><a class="btn" href="https://play.google.com/store/apps/details?id=com.yellowapps.podcast_em_all">Google Play</a></div>
-    </div>
-  </section>
-
-  <section class="sec" id="faq">
-    <div class="wrap">
-      <span class="eyebrow rv">FAQ</span>
-      <h2 class="rv">Questions worth asking</h2>
-
-      <div style="margin-top:28px;border-top:1px solid var(--line)">
-        <div class="qa rv">
-          <h3>Does it work offline?</h3>
-          <p>No, and this is the thing worth knowing before you install it. The text of your sources is sent to a server, where the script is written and then spoken; your phone receives the finished audio. Unlike Convert &rsquo;Em All, this app cannot do its job without a connection.</p>
-        </div>
-        <div class="qa rv">
-          <h3>Is anything free?</h3>
-          <p>Two things. The first three podcasts, once, without a plan. And readings in the original language, which are free and unlimited forever &mdash; it is the translated readings and the two-host podcasts that count against a plan.</p>
-        </div>
-        <div class="qa rv">
-          <h3>Why a subscription, when the other app is free?</h3>
-          <p>Because every podcast costs something to produce. Convert &rsquo;Em All runs entirely on your phone, so it costs nothing to give away. This one writes and speaks on a server, and a monthly plan is the honest way to cover that instead of pretending it is free and finding a worse way to pay for it.</p>
-        </div>
-        <div class="qa rv">
-          <h3>What happens if I close the app?</h3>
-          <p>Nothing stops. Generation runs in an Android foreground service rather than in the screen you are looking at, and each finished line is written to disk as it arrives. Force-close it, or restart the phone, and it carries on from where it was.</p>
-        </div>
-        <div class="qa rv">
-          <h3>Can I listen in a language my documents are not written in?</h3>
-          <p>Yes. Italian is the language sources are expected in; choose English, Spanish, French, Portuguese or German and the material is translated before it is spoken.</p>
-        </div>
-        <div class="qa rv">
-          <h3>Who makes it?</h3>
-          <p>Vittorio Vesco, an independent Android developer in Turin working solo under the name The Yellow Apps &mdash; the same person behind <a href="convert-em-all.html" style="color:var(--accent)">Convert &rsquo;Em All</a>.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
+<a class="other rv" href="convert-em-all.html" style="margin-top:64px">
+<span class="who"><img src="img/convert-em-all.png" alt="" width="64" height="64"><span><span class="mono" style="font-size:12px;text-transform:uppercase;letter-spacing:.12em">Also from The Yellow Apps</span><b>Convert 'Em All</b><span>File converter for Android. Free, on-device.</span></span></span>
+<span class="btn btn-o">Take a look →</span>
+</a>
+</div>
+</section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <span>&copy; 2026 The Yellow Apps &mdash; Vittorio Vesco &middot; Turin, Italy</span>
-    <nav>
-      <a href="index.html">All apps</a>
-      <a href="convert-em-all.html">Convert 'Em All</a>
-      <a href="changelog.html">Changelog</a>
-      <a href="https://play.google.com/store/apps/details?id=com.yellowapps.podcast_em_all">Google Play</a>
-      <a href="https://wittox.github.io/convert--em-all/">Privacy</a>
-      <a href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
-    </nav>
-  </div>
+<footer class="wrap foot">
+<span>© 2026 The Yellow Apps — Vittorio Vesco · Turin, Italy</span>
+<nav aria-label="Footer">
+<a href="index.html">All apps</a>
+<a href="convert-em-all.html">Convert 'Em All</a>
+<a href="changelog.html">Changelog</a>
+<a href="https://play.google.com/store/apps/details?id=com.yellowapps.podcast_em_all">Google Play</a>
+<a href="https://wittox.github.io/convert--em-all/">Privacy</a>
+<a href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
+</nav>
 </footer>
-
-<script>
-(function(){
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var revealables = document.querySelectorAll('.rv');
-  var demos = document.querySelectorAll('[data-demo]');
-
-  if (reduce || !('IntersectionObserver' in window)) {
-    revealables.forEach(function(el){ el.classList.add('in'); });
-    if (!reduce) demos.forEach(function(el){ el.classList.add('run'); });
-  } else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, { rootMargin:'0px 0px -12% 0px', threshold:0.1 });
-    revealables.forEach(function(el){ io.observe(el); });
-
-    var dio = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ e.target.classList.toggle('run', e.isIntersecting); });
-    }, { threshold:0.4 });
-    demos.forEach(function(el){ dio.observe(el); });
-  }
-
-  var samples = [
-    ["quarterly-report.PDF","28 pages","Podcast · two hosts","MP3"],
-    ["long-read.URL","web article","Read it · one voice","MP3"],
-    ["thesis-draft.DOCX","61 pages","Podcast · in-depth","MP3"],
-    ["lecture-notes.MD","9 pages","Read it · in English","MP3"]
-  ];
-  var i = 0;
-  var job = document.getElementById('job');
-  var sn = document.getElementById('srcName'), ss = document.getElementById('srcSize');
-  var on = document.getElementById('outName'), os = document.getElementById('outSize');
-  if (!reduce && job && sn){
-    setInterval(function(){
-      if (!job.classList.contains('run')) return;
-      i = (i + 1) % samples.length;
-      var s = samples[i];
-      sn.textContent = s[0]; ss.textContent = s[1];
-      on.textContent = s[2]; os.textContent = s[3];
-    }, 3200);
-  }
-
-  var bar = document.getElementById('bar');
-  var progress = document.getElementById('progress');
-  var argyle = document.getElementById('argyle');
-  var glow = document.getElementById('glow');
-  var ticking = false;
-
-  function frame(){
-    var y = window.scrollY || window.pageYOffset || 0;
-    var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    if (progress) progress.style.transform = 'scaleX(' + Math.min(1, y / max) + ')';
-    if (bar) bar.classList.toggle('stuck', y > 8);
-    if (!reduce){
-      if (argyle) argyle.style.transform = 'translate3d(0,' + (y * -0.05) + 'px,0)';
-      if (glow)   glow.style.transform   = 'translate3d(0,' + (y *  0.16) + 'px,0)';
-    }
-    ticking = false;
-  }
-  window.addEventListener('scroll', function(){
-    if (!ticking){ ticking = true; requestAnimationFrame(frame); }
-  }, { passive:true });
-  frame();
-})();
-</script>
+</div>
 
 <script type="application/ld+json">
 {
@@ -523,6 +219,18 @@ footer span{color:var(--dim);font-size:14px}
   ]
 }
 </script>
-
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"SoftwareApplication",
+  "name":"Podcast 'Em All",
+  "operatingSystem":"Android",
+  "applicationCategory":"MultimediaApplication",
+  "description":"Turns PDFs, Word documents, text files and web articles into a spoken reading or a two-host podcast, in six languages.",
+  "installUrl":"https://play.google.com/store/apps/details?id=com.yellowapps.podcast_em_all",
+  "author":{"@type":"Person","name":"Vittorio Vesco"},
+  "publisher":{"@type":"Organization","name":"The Yellow Apps"}
+}
+</script>
 </body>
 </html>
