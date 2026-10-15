@@ -11,7 +11,7 @@
   on-device, ma il copione lo scrive un LLM su backend. Non
   scrivere che l'app funziona interamente offline.
 
-  PREZZO: non deciso. Non mettere cifre finche' non lo e'.
+  PREZZO: piani mensili Base/Plus/Max, vedi sezione #pricing.
   ============================================================
 -->
 <meta charset="utf-8">
@@ -231,7 +231,7 @@ footer span{color:var(--dim);font-size:14px}
       <a href="#sources">Sources</a>
       <a href="#pricing">Price</a>
       <a href="#faq">FAQ</a>
-      <a href="convert-em-all.html">Convert 'Em All</a>
+      <a href="changelog.html">Changelog</a>
     </nav>
   </div>
 </header>
@@ -246,11 +246,10 @@ footer span{color:var(--dim);font-size:14px}
         <div class="sub">Documents you can listen to</div>
       </div>
     </div>
-    <div class="status rv d1"><i></i>In closed testing</div>
     <p class="lede rv d1">Give it a PDF, a Word document, a text file or the link to an article. It comes back either as a straight reading in one voice, or as a podcast where two hosts talk the thing through &mdash; in Italian, English, Spanish, French, Portuguese or German, at whatever depth you asked for.</p>
     <div class="acts rv d2">
-      <a class="btn ghost" href="#how">How it works</a>
-      <span class="small">Not released yet</span>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.yellowapps.podcast_em_all">Get it on Google Play</a>
+      <span class="small">3 podcasts free · no ads · no account</span>
     </div>
 
     <div class="job rv d3" id="job" aria-hidden="true" data-demo>
@@ -385,6 +384,7 @@ footer span{color:var(--dim);font-size:14px}
         <li class="rv"><span>No adverts, no tracking, and nothing collected about what you listen to</span></li>
       </ul>
       <p class="small rv" style="margin-top:20px">Unused podcasts do not roll over to the next month. Plans are billed through Google Play and can be cancelled there at any time.</p>
+      <div class="acts rv"><a class="btn" href="https://play.google.com/store/apps/details?id=com.yellowapps.podcast_em_all">Google Play</a></div>
     </div>
   </section>
 
@@ -394,10 +394,6 @@ footer span{color:var(--dim);font-size:14px}
       <h2 class="rv">Questions worth asking</h2>
 
       <div style="margin-top:28px;border-top:1px solid var(--line)">
-        <div class="qa rv">
-          <h3>When can I get it?</h3>
-          <p>It is in closed testing and not on Google Play for everyone yet. There is no release date to promise, and it will not be announced here until it is real.</p>
-        </div>
         <div class="qa rv">
           <h3>Does it work offline?</h3>
           <p>No, and this is the thing worth knowing before you install it. The text of your sources is sent to a server, where the script is written and then spoken; your phone receives the finished audio. Unlike Convert &rsquo;Em All, this app cannot do its job without a connection.</p>
@@ -435,6 +431,7 @@ footer span{color:var(--dim);font-size:14px}
       <a href="index.html">All apps</a>
       <a href="convert-em-all.html">Convert 'Em All</a>
       <a href="changelog.html">Changelog</a>
+      <a href="https://play.google.com/store/apps/details?id=com.yellowapps.podcast_em_all">Google Play</a>
       <a href="https://wittox.github.io/convert--em-all/">Privacy</a>
       <a href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
     </nav>
@@ -513,8 +510,6 @@ footer span{color:var(--dim);font-size:14px}
   "@context":"https://schema.org",
   "@type":"FAQPage",
   "mainEntity":[
-    {"@type":"Question","name":"When will Podcast 'Em All be released?",
-     "acceptedAnswer":{"@type":"Answer","text":"It is in closed testing and not generally available on Google Play yet. No release date has been announced."}},
     {"@type":"Question","name":"Does Podcast 'Em All work offline?",
      "acceptedAnswer":{"@type":"Answer","text":"No. The text of your sources is sent to a server, where the script is written and spoken, and the phone receives the finished audio. The app needs a connection to do its job."}},
     {"@type":"Question","name":"How much does Podcast 'Em All cost?",

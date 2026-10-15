@@ -51,7 +51,7 @@ Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298
 
 ### Podcast 'Em All
 - Page: https://theyellowapps.com/podcast-em-all.html
-- Status: in closed testing on Google Play, not publicly released yet.
+- Status: published on Google Play (October 2026). https://play.google.com/store/apps/details?id=com.yellowapps.podcast_em_all
 - Package: com.yellowapps.podcast_em_all
 - What it is: turns PDFs, Word documents, text and Markdown files and web
   articles into audio — either a faithful single-voice reading or a
