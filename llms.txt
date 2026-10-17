@@ -6,6 +6,7 @@
 
 Site: https://theyellowapps.com/
 Contact: help@theyellowapps.com
+Privacy policies: https://theyellowapps.com/privacy/
 Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298072132594
 
 ## How these apps are sold

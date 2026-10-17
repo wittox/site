@@ -196,3 +196,22 @@ html{scroll-behavior:smooth}
 .tape-wrap{height:120px}
 .note{padding:28px}
 }
+
+/* privacy pages */
+.pol-hero{padding:64px 0 56px}
+.pol-meta{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 0}
+.pol-meta a.pill{text-decoration:none;color:var(--ink);transition:background .25s,border-color .25s}
+.pol-meta a.pill:hover{background:var(--y);border-color:var(--y)}
+.pol-lang{padding:0 0 96px}
+.pol-tldr{background:var(--y);border-radius:28px;padding:clamp(28px,4vw,48px);margin:0 0 40px}
+.pol-k{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#2A2A20;margin:0 0 14px}
+.pol-big{margin:0;font-size:clamp(22px,2.4vw,32px);font-weight:800;font-stretch:110%;letter-spacing:-.02em;line-height:1.2;max-width:900px}
+.pol .row{grid-template-columns:minmax(0,260px) minmax(0,1fr);padding:32px 0}
+.pol .row h3{font-size:clamp(22px,2vw,28px)}
+.pol-body{max-width:760px}
+.pol-body p+p{margin-top:14px}
+.pol-body a{color:var(--ink);text-decoration-color:var(--y);text-decoration-thickness:2px;text-underline-offset:3px}
+.pol-card{text-decoration:none;color:var(--ink)}
+.pol-card:hover{color:var(--ink)}
+.pol-go{margin-top:auto;font-size:13px;text-transform:uppercase;letter-spacing:.12em}
+@media (max-width:900px){.pol-hero{padding:36px 0 40px}.pol-lang{padding:0 0 64px}.pol .row{grid-template-columns:minmax(0,1fr);gap:12px}}
