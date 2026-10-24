@@ -7,11 +7,18 @@
 <meta name="description" content="The Yellow Apps is an independent Android developer in Italy. Convert 'Em All and Podcast 'Em All: small apps that do one job properly. No adverts, no tracking, no account to create.">
 <meta name="theme-color" content="#FAF8EF">
 <link rel="canonical" href="https://theyellowapps.com/">
+<meta property="og:type" content="website">
 <meta property="og:title" content="The Yellow Apps — small Android apps that do one job properly">
 <meta property="og:description" content="Convert 'Em All and Podcast 'Em All, both on Google Play. No adverts, no tracking, no account.">
 <meta property="og:image" content="https://theyellowapps.com/og.png">
 <meta property="og:url" content="https://theyellowapps.com/">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:site_name" content="The Yellow Apps">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Yellow Apps — small Android apps that do one job properly">
+<link rel="apple-touch-icon" href="https://theyellowapps.com/img/convert-em-all.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -442,5 +449,61 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 </nav>
 </footer>
 </div>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://theyellowapps.com/#org",
+   "name": "The Yellow Apps",
+   "url": "https://theyellowapps.com/",
+   "logo": "https://theyellowapps.com/img/convert-em-all.png",
+   "email": "help@theyellowapps.com",
+   "founder": {
+    "@type": "Person",
+    "name": "Vittorio Vesco",
+    "jobTitle": "Independent Android developer"
+   },
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Turin",
+    "addressCountry": "IT"
+   },
+   "sameAs": [
+    "https://play.google.com/store/apps/dev?id=5333545298072132594"
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://theyellowapps.com/#site",
+   "url": "https://theyellowapps.com/",
+   "name": "The Yellow Apps",
+   "inLanguage": "en",
+   "publisher": {
+    "@id": "https://theyellowapps.com/#org"
+   }
+  },
+  {
+   "@type": "ItemList",
+   "name": "Apps by The Yellow Apps",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "url": "https://theyellowapps.com/convert-em-all.html",
+     "name": "Convert 'Em All"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "url": "https://theyellowapps.com/podcast-em-all.html",
+     "name": "Podcast 'Em All"
+    }
+   ]
+  }
+ ]
+}
+</script>
 </body>
 </html>
