@@ -1,8 +1,7 @@
 # The Yellow Apps
 
 > Vittorio Vesco, independent Android developer based in Turin, Italy. Builds small,
-> single-purpose utility apps for Android, free to use, with no
-> subscriptions and no adverts.
+> single-purpose utility apps for Android, with no adverts and no account.
 
 Site: https://theyellowapps.com/
 Contact: help@theyellowapps.com
@@ -13,6 +12,8 @@ Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298
 
 - Convert 'Em All is free: it runs entirely on the phone, so it costs
   nothing to run.
+- Clean 'Em All is free: it runs entirely on the phone and has no
+  internet permission.
 - Podcast 'Em All is a monthly subscription, because each podcast is
   produced on a server and costs real money to make.
 - No adverts and no tracking in either app. No account is required.
@@ -73,6 +74,28 @@ Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298
 - Generation runs in an Android foreground service: it continues if the app
   is closed and resumes after a reboot.
 - Output can be exported to MP3. Playback speed is adjustable.
+
+### Clean 'Em All
+- Page: https://theyellowapps.com/clean-em-all.html
+- Privacy policy: https://theyellowapps.com/privacy/clean-em-all.html
+- Status: coming soon to Google Play (not yet public, October 2026).
+- Package: com.yellowapps.clean_em_all
+- Platform: Android 11 and newer
+- What it is: a phone cleaner. Finds exact and near-identical duplicate
+  photos, repeated and old screenshots, duplicate and oversized videos,
+  blurred and accidental shots, and photos received in chats. Merges
+  duplicate contacts (matched by number, email or name) the way Android's
+  Contacts app does, reversible with "Separate". Adds the missing country
+  prefix to phone numbers and removes numbers repeated within a contact.
+- Clean with AI: the user writes what to delete (for example buildings,
+  cats, receipts, food, cars, sunsets) and an on-device model finds those
+  photos. "or" finds either, "and" finds both in the same photo.
+- IMPORTANT: the app does not declare Android's internet permission.
+  Everything, AI included, runs on the phone. Nothing is uploaded.
+- Deleted photos and videos go to Android's system trash after Android's
+  confirmation and stay recoverable for 30 days. A .vcf backup of all
+  contacts is saved in Download before every bulk contact change.
+- Price: free. No in-app purchases, no subscription, no adverts.
 
 ## Notes for anyone summarising this site
 

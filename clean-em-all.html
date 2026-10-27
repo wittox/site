@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clean 'Em All — duplicate photos and contacts cleaner for Android</title>
+<meta name="description" content="Finds duplicate photos, screenshots and videos, merges duplicate contacts, fixes numbers saved without the country prefix, and deletes photos by description with on-device AI. Free, and it has no internet permission.">
+<meta name="theme-color" content="#FAF8EF">
+<link rel="canonical" href="https://theyellowapps.com/clean-em-all.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="256x256" href="/img/the-yellow-apps.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://theyellowapps.com/clean-em-all.html">
+<meta property="og:title" content="Clean 'Em All — duplicate photos and contacts cleaner for Android">
+<meta property="og:description" content="Duplicate photos and contacts, cleaned on the phone. Write what to delete and the on-device AI finds it. Free, no internet permission.">
+<meta property="og:image" content="https://theyellowapps.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:site_name" content="The Yellow Apps">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Yellow Apps — small Android apps that do one job properly">
+<link rel="apple-touch-icon" href="https://theyellowapps.com/img/the-yellow-apps.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<link rel="stylesheet" href="app.css">
+<style>
+/* AI demo: prompt + photo grid */
+.ask{display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:16px;background:var(--stage);border:1.5px dashed #BDB8A5;font-weight:700}
+.ask .q{color:var(--mute);font-weight:400;flex:none}
+.ask .typed{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;border-right:2px solid var(--ink);padding-right:2px}
+.shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.shot{position:relative;aspect-ratio:1;border-radius:12px;background:var(--stage);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:#8C8775}
+.shot svg{width:46%;height:46%}
+.shot .tick{position:absolute;top:6px;right:6px;width:20px;height:20px;border-radius:50%;background:var(--y);box-shadow:0 0 0 1.5px var(--ink);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.4)}
+.shot .tick svg{width:12px;height:12px;color:var(--ink)}
+.shot.hit{color:var(--ink)}
+.shot.hit .tick{opacity:1;transform:none}
+.shot.hit{outline:2.5px solid var(--ink);outline-offset:-2px;background:var(--y);border-color:var(--y)}
+@media (prefers-reduced-motion:no-preference){
+.motion-on .ask .typed{animation:type 7s steps(9,end) infinite}
+.motion-on .shot.hit{animation:hitbg 7s ease infinite}
+.motion-on .shot.hit .tick{animation:hittick 7s cubic-bezier(.2,.8,.2,1) infinite}
+.motion-on .shot.hit:nth-child(4){animation-delay:.12s}.motion-on .shot.hit:nth-child(4) .tick{animation-delay:.12s}
+.motion-on .shot.hit:nth-child(6){animation-delay:.24s}.motion-on .shot.hit:nth-child(6) .tick{animation-delay:.24s}
+.motion-on .shot.hit:nth-child(7){animation-delay:.36s}.motion-on .shot.hit:nth-child(7) .tick{animation-delay:.36s}
+.motion-on .found{animation:hittick 7s cubic-bezier(.2,.8,.2,1) infinite}
+}
+@keyframes type{0%{width:0}22%,85%{width:9ch}95%,100%{width:0}}
+@keyframes hitbg{0%,30%{background:var(--stage);border-color:var(--line);outline-color:transparent;color:#8C8775}38%,85%{background:var(--y);border-color:var(--y);outline-color:var(--ink);color:var(--ink)}95%,100%{background:var(--stage);border-color:var(--line);outline-color:transparent;color:#8C8775}}
+@keyframes hittick{0%,30%{opacity:0;transform:scale(.4)}38%,85%{opacity:1;transform:none}95%,100%{opacity:0;transform:scale(.4)}}
+@media (max-width:900px){.shots{gap:8px}}
+</style>
+</head>
+<body>
+<div class="root motion-on">
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav">
+<div class="wrap nav-in">
+<a class="brand" href="/"><img src="/img/the-yellow-apps.png" alt="" width="44" height="44"><span>The Yellow Apps</span></a>
+<nav class="links" aria-label="Main">
+<a class="l" href="/#apps">Apps</a>
+<a class="l" href="#how">How it works</a>
+<a class="l" href="#price">Price</a>
+<a class="l" href="#faq">FAQ</a>
+<a class="l" href="convert-em-all.html">Convert 'Em All</a>
+<a class="mailnav mono" href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
+</nav>
+</div>
+</header>
+
+<main>
+<section class="hero">
+<div class="wrap hero-grid">
+<div>
+<p class="crumb mono"><a href="/">The Yellow Apps</a> / Clean 'Em All</p>
+<div class="app-id">
+<img src="img/clean-em-all.png" alt="Clean 'Em All icon" width="88" height="88">
+<span class="pill new mono"><span class="dot"></span>New · Coming soon</span>
+</div>
+<h1 class="display h1">Clean <span class="hl">'Em All</span></h1>
+<p class="tag fade">Photos and contacts, saved once.</p>
+<p class="lede fade">It finds the photos, screenshots and videos you have twice, the contacts saved more than once and the numbers missing their country prefix — and lets you clear them in a few taps. Or just write what you want gone, “buildings”, “receipts”, “cats”, and the AI finds them. All of it on the phone, which has no way to send anything out.</p>
+<div class="ctas fade2">
+<a class="btn btn-y" href="#what">What it cleans</a>
+<a class="btn btn-o" href="#how">How it works</a>
+</div>
+<p class="facts mono fade2">Free · no ads · no account · no internet permission</p>
+</div>
+
+<div class="demo fade2" role="img" aria-label="Animated example: typing 'buildings' into Clean with AI selects the photos of buildings in a grid">
+<div class="demo-top mono"><span>Clean with AI</span><span class="live"><span class="dot"></span>On the phone</span></div>
+<div>
+<p class="slot-label mono">Delete photos with</p>
+<div class="ask mono"><span class="typed">buildings</span></div>
+</div>
+<div class="shots" aria-hidden="true">
+<div class="shot hit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 21V9l6-4v16M10 21V3h10v18M3 21h18M13 7h4M13 11h4M13 15h4"/></svg><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span></div>
+<div class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l1-5 4 3h4l4-3 1 5c1 2 1 4 0 6-1.5 3-4 5-7 5s-5.5-2-7-5c-1-2-1-4 0-6z"/><path d="M9.5 13h.01M14.5 13h.01M11 16h2"/></svg><span class="tick"></span></div>
+<div class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18M6 18a6 6 0 0 1 12 0M12 6V4M5 11l-1.5-1M19 11l1.5-1"/></svg><span class="tick"></span></div>
+<div class="shot hit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-5h6v5M9 11h.01M15 11h.01"/></svg><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span></div>
+<div class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"/></svg><span class="tick"></span></div>
+<div class="shot hit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 21h18M6 21V5h5v16M11 21V9h7v12M8 8h1M8 12h1M8 16h1M14 12h1M14 16h1"/></svg><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span></div>
+<div class="shot hit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 21h18M7 21V4h10v17M10 7h4M10 11h4M10 15h4M11 21v-3h2v3"/></svg><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span></div>
+<div class="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14l2-5h12l2 5v4H4zM4 18v2M20 18v2M7 15h.01M17 15h.01"/></svg><span class="tick"></span></div>
+</div>
+<div class="file out mono found">4 photos found <small style="color:#2A2A20">to the trash?</small></div>
+<p class="demo-foot mono">Nothing is deleted until you confirm</p>
+</div>
+</div>
+</section>
+
+<div class="tape-wrap" aria-hidden="true">
+<div class="tape"><div class="track">
+<span>PHOTO × 2 → PHOTO</span><i>/</i><span>CONTACT × 3 → CONTACT</span><i>/</i><span>333… → +39 333…</span><i>/</i><span>“BUILDINGS” → TRASH</span><i>/</i>
+<span>PHOTO × 2 → PHOTO</span><i>/</i><span>CONTACT × 3 → CONTACT</span><i>/</i><span>333… → +39 333…</span><i>/</i><span>“BUILDINGS” → TRASH</span><i>/</i>
+</div></div>
+</div>
+
+<section class="sec" id="what" style="padding-top:40px">
+<div class="wrap">
+<div class="sec-head rv">
+<h2 class="display h2">What it<br>cleans up.</h2>
+<p class="sub">The clutter that piles up on every phone, found for you, and cleared only when you say so.</p>
+</div>
+<div class="feats">
+<article class="feat y rv"><span class="n mono">01</span><h3>Duplicate photos</h3><p>Exact copies, and the same picture saved smaller or recompressed by a chat app. Then the near-identical ones — bursts and retakes — grouped for you to look at, with a suggestion of which one to keep.</p></article>
+<article class="feat rv"><span class="n mono">02</span><h3>Clean with AI</h3><p>Write what you want gone: buildings, cats, receipts, food, cars, sunsets. “Or” finds either, “and” finds both in the same photo. The AI runs on the phone and marks the photos it is unsure about, so you decide.</p></article>
+<article class="feat rv"><span class="n mono">03</span><h3>Duplicate contacts</h3><p>The same person saved more than once, matched by number, email or name, then merged the way Android's own Contacts app does: every account keeps its data and keeps syncing, and “Separate” undoes it.</p></article>
+<article class="feat rv"><span class="n mono">04</span><h3>Numbers to tidy</h3><p>Numbers saved without the country prefix get it, so WhatsApp and the duplicate search recognise them; calls work as before. The same number repeated inside one contact is removed.</p></article>
+<article class="feat rv"><span class="n mono">05</span><h3>Screenshots and videos</h3><p>The same screen captured twice, screenshots older than a month, videos saved more than once, and the biggest ones — which it can also shrink to at most 1080p.</p></article>
+<article class="feat rv"><span class="n mono">06</span><h3>The rest of the clutter</h3><p>Blurred photos, black shots taken in a pocket, memes piling up from WhatsApp and Telegram. Or swipe through the gallery: left to delete, right to keep.</p></article>
+</div>
+</div>
+</section>
+
+<section class="sec" id="how" style="padding-top:40px">
+<div class="wrap">
+<div class="sec-head rv">
+<div>
+<p class="eyebrow mono"><span class="dot"></span>How it works</p>
+<h2 class="display h2">It finds.<br>You decide.</h2>
+</div>
+</div>
+<div class="rows">
+<div class="row step rv"><span class="num">01</span><h3>Open a section</h3><p>Photos, screenshots, videos, contacts or AI. Each permission is asked for only when you open the section that needs it, never at launch.</p></div>
+<div class="row step rv"><span class="num">02</span><h3>It looks, once</h3><p>Every picture gets a small fingerprint, and the AI learns what is in your photos the first time only. Both are kept on the phone, so the next scan looks at new photos alone.</p></div>
+<div class="row step rv"><span class="num">03</span><h3>You choose</h3><p>Results come grouped, with a suggestion of what to keep. Compare, change the selection, hide a group that is not really a duplicate. Nothing is touched yet.</p></div>
+<div class="row step rv"><span class="num">04</span><h3>Android confirms</h3><p>Photos and videos go to Android's own trash, after Android asks you, and stay recoverable for 30 days. Before any change to your contacts a .vcf backup is saved in Download.</p></div>
+</div>
+<div class="note rv">
+<h3>Where the work happens</h3>
+<p>On the phone, and nowhere else. Clean ’Em All does not declare Android's internet permission, so the system will not let it connect to anything — not for the duplicate search, not for the AI. Your photos and your address book never leave the device, and there is no server for them to go to.</p>
+</div>
+</div>
+</section>
+
+<section class="sec" id="details" style="padding-top:40px">
+<div class="wrap">
+<div class="sec-head rv">
+<div>
+<p class="eyebrow mono"><span class="dot"></span>In detail</p>
+<h2 class="display h2">Every corner<br>it checks.</h2>
+</div>
+</div>
+<div class="rows">
+<div class="row rv"><h3>Photos</h3><p>Copies are safe to delete. Similar shots are different pictures of the same moment, so you look before you delete. Choose how strict the match is.</p><div class="chips mono"><span class="chip">EQUAL</span><span class="chip">SIMILAR</span><span class="chip">BLURRED</span><span class="chip">ACCIDENTAL</span><span class="chip">FROM CHATS</span></div></div>
+<div class="row rv"><h3>AI</h3><p>Plain words. If it does not know a word it says so and suggests ones it does. Hold a photo to see what the AI saw in it.</p><div class="chips mono"><span class="chip">BUILDINGS</span><span class="chip">CATS</span><span class="chip">RECEIPTS</span><span class="chip">FOOD</span><span class="chip">CARS</span><span class="chip">SUNSETS</span></div></div>
+<div class="row rv"><h3>Screenshots and videos</h3><p>Repeated captures, old ones you no longer need, duplicate videos and the heaviest files on the phone.</p><div class="chips mono"><span class="chip">REPEATED</span><span class="chip">OLD</span><span class="chip">BIGGEST</span><span class="chip">1080P</span></div></div>
+<div class="row rv"><h3>Contacts</h3><p>Duplicates by number, email or name, plus the contacts with no number or email and the ones saved without a name.</p><div class="chips mono"><span class="chip">SAME NUMBER</span><span class="chip">SAME EMAIL</span><span class="chip">SAME NAME</span><span class="chip">NO NUMBER</span></div></div>
+<div class="row rv"><h3>Space</h3><p>Big JPEG photos can be compressed to about half their size, keeping the date, the camera and the place they were taken.</p><div class="chips mono"><span class="chip">COMPRESS</span><span class="chip">SWIPE</span><span class="chip">MONTHLY REMINDER</span></div></div>
+</div>
+</div>
+</section>
+
+<section class="sec" id="price" style="padding-top:40px">
+<div class="wrap">
+<div class="sec-head rv">
+<div>
+<p class="eyebrow mono"><span class="dot"></span>Price</p>
+<h2 class="display h2">Free. All of it.</h2>
+</div>
+<p class="sub">It runs entirely on your phone, so it costs nothing to run — and nothing to use.</p>
+</div>
+<div class="price">
+<div class="bigprice rv">
+<span class="mono" style="font-size:12px;text-transform:uppercase;letter-spacing:.12em">Everything included</span>
+<span class="v">€0</span>
+<p>No paid tier, no “3 cleanups left”, no subscription hiding behind a scan. Coming to Google Play soon.</p>
+</div>
+<ul class="list rv">
+<li>Every tool unlocked, AI included</li>
+<li>No limit on photos, videos or contacts</li>
+<li>No in-app purchases and no subscription</li>
+<li>No adverts, no tracking, no account</li>
+<li>No internet permission at all</li>
+<li>Android 11 and newer</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="sec" id="faq" style="padding-top:40px">
+<div class="wrap">
+<div class="sec-head rv">
+<div>
+<p class="eyebrow mono"><span class="dot"></span>FAQ</p>
+<h2 class="display h2">Questions<br>worth asking.</h2>
+</div>
+</div>
+<div class="faq rv">
+<details><summary>Are my photos or contacts uploaded anywhere?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>No. The app does not have Android's internet permission, so it cannot connect to anything. The duplicate search and the AI both run on the phone. The full details are in the <a href="privacy/clean-em-all.html">privacy policy</a>.</p></div></details>
+<details><summary>What can the AI find?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>Write what you want to clean out — “buildings”, “cats or dogs”, “receipts”, “food”, “cars”, “sunsets”. “Or” finds either, “and” finds both in the same photo. Photos it is unsure about are marked “maybe?” for you to tick yourself, and if it does not know a word it tells you which ones it understands. The first time, it goes through the gallery once; after that it is quick.</p></div></details>
+<details><summary>Can I get back something I deleted?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>Yes. Photos and videos go to Android's own trash, only after Android asks you to confirm, and stay recoverable from the Gallery app for 30 days. Contacts are backed up to a .vcf file in Download before every bulk change, and a merge can be undone with “Separate”.</p></div></details>
+<details><summary>What does merging contacts actually do?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>The same as Android's Contacts app: the duplicate entries are linked into one contact, nothing is deleted, and every account — Google, SIM, phone — keeps its own data and keeps syncing.</p></div></details>
+<details><summary>What does “numbers to tidy” change?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>Numbers saved without the country prefix get it added, so WhatsApp and the duplicate search recognise them; calling them works exactly as before. A number repeated inside the same contact is removed. A backup is saved first.</p></div></details>
+<details><summary>Which phones does it run on?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>Android 11 and newer. The interface is in English, Italian, Spanish, French, German and Portuguese, and follows the phone's language.</p></div></details>
+<details><summary>Who makes it?<span class="plus" aria-hidden="true">+</span></summary><div class="a"><p>Vittorio Vesco, an independent Android developer in Turin working solo under the name The Yellow Apps — the same person behind Convert ’Em All and Podcast ’Em All. Questions and bug reports: <a href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>.</p></div></details>
+</div>
+
+<a class="other rv" href="convert-em-all.html" style="margin-top:64px">
+<span class="who"><img src="img/convert-em-all.png" alt="" width="64" height="64"><span><span class="mono" style="font-size:12px;text-transform:uppercase;letter-spacing:.12em">Also from The Yellow Apps</span><b>Convert 'Em All</b><span>File converter for Android. Free, on-device.</span></span></span>
+<span class="btn btn-o">Take a look →</span>
+</a>
+</div>
+</section>
+</main>
+
+<footer class="wrap foot">
+<span>© 2026 The Yellow Apps — Vittorio Vesco · Turin, Italy</span>
+<nav aria-label="Footer">
+<a href="/">All apps</a>
+<a href="convert-em-all.html">Convert 'Em All</a>
+<a href="podcast-em-all.html">Podcast 'Em All</a>
+<a href="privacy/clean-em-all.html">Privacy</a>
+<a href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
+</nav>
+</footer>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Does Clean 'Em All upload my photos or contacts?",
+     "acceptedAnswer":{"@type":"Answer","text":"No. The app does not declare Android's internet permission, so it cannot connect to anything. The duplicate search and the AI both run on the phone."}},
+    {"@type":"Question","name":"What can the Clean 'Em All AI find?",
+     "acceptedAnswer":{"@type":"Answer","text":"You write what you want to clean out, such as buildings, cats, receipts, food, cars or sunsets, and it finds those photos on the phone. 'Or' finds either, 'and' finds both in the same photo. Photos it is unsure about are marked 'maybe?'."}},
+    {"@type":"Question","name":"Can I recover photos deleted with Clean 'Em All?",
+     "acceptedAnswer":{"@type":"Answer","text":"Yes. Photos and videos go to Android's system trash after Android asks you to confirm, and stay recoverable for 30 days. Contacts are backed up to a .vcf file in Download before every bulk change."}},
+    {"@type":"Question","name":"How much does Clean 'Em All cost?",
+     "acceptedAnswer":{"@type":"Answer","text":"It is free, with no in-app purchases, no subscription and no adverts."}},
+    {"@type":"Question","name":"Which Android versions does Clean 'Em All support?",
+     "acceptedAnswer":{"@type":"Answer","text":"Android 11 and newer."}},
+    {"@type":"Question","name":"Who makes Clean 'Em All?",
+     "acceptedAnswer":{"@type":"Answer","text":"Vittorio Vesco, an independent Android developer based in Turin, Italy, working solo under the name The Yellow Apps."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"SoftwareApplication",
+  "name":"Clean 'Em All",
+  "operatingSystem":"Android 11+",
+  "applicationCategory":"UtilitiesApplication",
+  "description":"Finds and removes duplicate photos, screenshots and videos, merges duplicate contacts, adds missing country prefixes to phone numbers, and deletes photos by description with on-device AI. No internet permission.",
+  "author":{"@type":"Person","name":"Vittorio Vesco"},
+  "publisher":{"@type":"Organization","@id":"https://theyellowapps.com/#org","name":"The Yellow Apps","url":"https://theyellowapps.com/"},
+  "url":"https://theyellowapps.com/clean-em-all.html",
+  "image":"https://theyellowapps.com/img/clean-em-all.png",
+  "inLanguage":["en","it","es","fr","de","pt"],
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","description":"Free, no in-app purchases"}
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {"@type": "ListItem","position": 1,"name": "The Yellow Apps","item": "https://theyellowapps.com/"},
+  {"@type": "ListItem","position": 2,"name": "Clean 'Em All","item": "https://theyellowapps.com/clean-em-all.html"}
+ ]
+}
+</script>
+</body>
+</html>

@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Yellow Apps — small Android apps that do one job properly</title>
-<meta name="description" content="The Yellow Apps is an independent Android developer in Italy. Convert 'Em All and Podcast 'Em All: small apps that do one job properly. No adverts, no tracking, no account to create.">
+<meta name="description" content="The Yellow Apps is an independent Android developer in Italy. Convert 'Em All, Podcast 'Em All and Clean 'Em All: small apps that do one job properly. No adverts, no tracking, no account to create.">
 <meta name="theme-color" content="#FAF8EF">
 <link rel="canonical" href="https://theyellowapps.com/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Yellow Apps — small Android apps that do one job properly">
-<meta property="og:description" content="Convert 'Em All and Podcast 'Em All, both on Google Play. No adverts, no tracking, no account.">
+<meta property="og:description" content="Convert 'Em All, Podcast 'Em All and Clean 'Em All. No adverts, no tracking, no account.">
 <meta property="og:image" content="https://theyellowapps.com/og.png">
 <meta property="og:url" content="https://theyellowapps.com/">
 <meta name="twitter:card" content="summary_large_image">
@@ -99,7 +99,13 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 .sub{color:var(--mute);font-size:18px;max-width:420px;margin:0}
 
 /* apps */
-.apps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.apps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.app-k{background:var(--ink);color:#F3F0E4}
+.app-k .pkg{opacity:.55}
+.app-k p.desc{color:#C9C4B2}
+.app-k h3 a{color:#F3F0E4}
+.app-k .chip{border-color:#F3F0E4;color:#F3F0E4}
+@media (max-width:1180px){.apps{grid-template-columns:repeat(2,minmax(0,1fr))}.app-k{grid-column:1/-1;min-height:0}}
 .app{border-radius:28px;padding:40px;display:flex;flex-direction:column;gap:24px;min-height:560px;position:relative;overflow:hidden;transition:transform .4s cubic-bezier(.2,.8,.2,1);box-shadow:0 30px 60px -40px rgba(90,77,0,.4)}
 .app:hover{transform:translateY(-6px)}
 .app-c{background:var(--y);color:var(--ink)}
@@ -109,7 +115,7 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 .brand-ic{width:44px;height:44px;border-radius:11px;display:block}
 .status{font-size:12px;text-transform:uppercase;letter-spacing:.12em;display:flex;align-items:center;gap:8px;margin:0 0 4px}
 .app h3{margin:0;font-size:32px;font-weight:850;font-stretch:115%;letter-spacing:-.02em;line-height:1}
-.pkg{font-size:13px;opacity:.6;margin:6px 0 0}
+.pkg{font-size:13px;opacity:.6;margin:6px 0 0;overflow-wrap:anywhere}
 .app p.desc{margin:0;font-size:18px;line-height:1.55}
 .app-c p.desc{color:#2A2A20}
 .app-p p.desc{color:var(--mute)}
@@ -143,6 +149,7 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 .duo{display:flex;gap:16px}
 .duo img{width:80px;height:80px;border-radius:20px;box-shadow:0 14px 26px -14px rgba(90,77,0,.5);display:block}
 .duo img:nth-child(2){transform:rotate(6deg) translateY(6px)}
+.duo img:nth-child(3){transform:rotate(-5deg) translateY(-2px)}
 .mlink{color:var(--mute);text-decoration:none}.mlink:hover{color:var(--ink);text-decoration:underline}
 .tlink{color:inherit;text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0% 3px no-repeat;transition:background-size .35s cubic-bezier(.2,.8,.2,1)}
 .tlink:hover{color:inherit;background-size:100% 3px}
@@ -244,6 +251,7 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <a class="l" href="#rules">Rules</a>
 <a class="l" href="https://theyellowapps.com/convert-em-all.html">Convert 'Em All</a>
 <a class="l" href="https://theyellowapps.com/podcast-em-all.html">Podcast 'Em All</a>
+<a class="l" href="https://theyellowapps.com/clean-em-all.html">Clean 'Em All</a>
 <a class="mailnav mono" href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
 </nav>
 </div>
@@ -253,9 +261,9 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <section class="hero">
 <div class="wrap hero-grid">
 <div>
-<a class="news" href="https://theyellowapps.com/podcast-em-all.html">
+<a class="news" href="https://theyellowapps.com/clean-em-all.html">
 <span class="news-tag mono">New</span>
-<span>Podcast 'Em All is out now</span>
+<span>Clean 'Em All is coming</span>
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
 </a>
 <p class="eyebrow mono"><span class="dot"></span>Independent Android development · Turin, Italy</p>
@@ -315,7 +323,7 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <section class="sec" id="apps">
 <div class="wrap">
 <div class="sec-head rv">
-<h2 class="display h2">Two apps.<br>Both out.</h2>
+<h2 class="display h2">Three apps.<br>One on its way.</h2>
 <p class="sub">Built and maintained by one person. Each does a single job and stops there.</p>
 </div>
 <div class="apps">
@@ -358,6 +366,25 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <a class="btn btn-ok" href="https://theyellowapps.com/podcast-em-all.html">What it does</a>
 </div>
 </article>
+
+<article class="app app-k rv">
+<div class="app-head">
+<img class="icon" src="img/clean-em-all.png" width="72" height="72" alt="Clean 'Em All icon">
+<div>
+<p class="status mono"><span class="dot"></span>New · Coming soon</p>
+<h3><a class="tlink" href="https://theyellowapps.com/clean-em-all.html">Clean 'Em All</a></h3>
+<p class="pkg mono">com.yellowapps.clean_em_all</p>
+</div>
+</div>
+<p class="desc">Duplicate photos, screenshots and videos, contacts saved twice, numbers missing their country prefix. Or write what to delete — “buildings”, “receipts” — and the AI finds it. On the phone, with no internet permission.</p>
+<div class="chips mono">
+<span class="chip">PHOTOS</span><span class="chip">CONTACTS</span><span class="chip">+39</span><span class="chip">AI</span>
+</div>
+<p class="fact">Free, no adverts, no account.</p>
+<div class="app-foot">
+<a class="btn btn-y" href="https://theyellowapps.com/clean-em-all.html">What it does</a>
+</div>
+</article>
 </div>
 </div>
 </section>
@@ -374,7 +401,7 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <div class="feats">
 <article class="feat rv">
 <div class="stage" aria-hidden="true">
-<div class="stats"><p><b>1</b><span class="mono">developer</span></p><p><b>2</b><span class="mono">apps</span></p><p class="z"><b>0</b><span class="mono">adverts</span></p></div>
+<div class="stats"><p><b>1</b><span class="mono">developer</span></p><p><b>3</b><span class="mono">apps</span></p><p class="z"><b>0</b><span class="mono">adverts</span></p></div>
 </div>
 <span class="n mono">01</span>
 <h3>Small on purpose</h3>
@@ -397,11 +424,12 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <div class="duo">
 <img src="img/convert-em-all.png" width="80" height="80" alt="">
 <img src="img/podcast-em-all.png" width="80" height="80" alt="">
+<img src="img/clean-em-all.png" width="80" height="80" alt="">
 </div>
 </div>
 <span class="n mono">03</span>
 <h3>The 'Em All family</h3>
-<p>Each app takes one kind of job and handles all of it. Same rules, same care, same name at the end. Two so far.</p>
+<p>Each app takes one kind of job and handles all of it. Same rules, same care, same name at the end. Three so far.</p>
 </article>
 </div>
 <div class="paper rv">
@@ -422,7 +450,7 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <div class="rule rv">
 <span class="num">01</span>
 <h3>You pay for what costs money.</h3>
-<p>Convert 'Em All works entirely on your phone, so it costs nothing to run and nothing to use. Podcast 'Em All calls a server every time, so it has a plan. Neither one is priced for the sake of it.</p>
+<p>Convert 'Em All and Clean 'Em All work entirely on your phone, so they cost nothing to run and nothing to use. Podcast 'Em All calls a server every time, so it has a plan. Neither one is priced for the sake of it.</p>
 </div>
 <div class="rule rv">
 <span class="num">02</span>
@@ -445,6 +473,7 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <nav aria-label="Footer">
 <a href="https://theyellowapps.com/convert-em-all.html">Convert 'Em All</a>
 <a href="https://theyellowapps.com/podcast-em-all.html">Podcast 'Em All</a>
+<a href="https://theyellowapps.com/clean-em-all.html">Clean 'Em All</a>
 <a href="https://theyellowapps.com/changelog.html">Changelog</a>
 <a href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
 <a href="privacy/">Privacy</a>
@@ -501,7 +530,13 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
      "position": 2,
      "url": "https://theyellowapps.com/podcast-em-all.html",
      "name": "Podcast 'Em All"
-    }
+    },
+     {
+      "@type": "ListItem",
+      "position": 3,
+      "url": "https://theyellowapps.com/clean-em-all.html",
+      "name": "Clean 'Em All"
+     }
    ]
   }
  ]
