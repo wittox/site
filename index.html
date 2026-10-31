@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Yellow Apps — small Android apps that do one job properly</title>
-<meta name="description" content="The Yellow Apps is an independent Android developer in Italy. Convert 'Em All, Podcast 'Em All and Clean 'Em All: small apps that do one job properly. No adverts, no tracking, no account to create.">
+<meta name="description" content="The Yellow Apps is an independent Android developer in Italy. Convert 'Em All, Podcast 'Em All, Clean 'Em All and Greet 'Em All: small apps that do one job properly. No adverts, no tracking, no account to create.">
 <meta name="theme-color" content="#FAF8EF">
 <link rel="canonical" href="https://theyellowapps.com/">
 <meta property="og:type" content="website">
@@ -99,14 +99,21 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 .sub{color:var(--mute);font-size:18px;max-width:420px;margin:0}
 
 /* apps */
-.apps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.apps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
 .app-k{background:var(--ink);color:#F3F0E4}
 .app-k .pkg{opacity:.55}
 .app-k p.desc{color:#C9C4B2}
 .app-k h3 a{color:#F3F0E4}
 .app-k .chip{border-color:#F3F0E4;color:#F3F0E4}
 .btn-ol{border:1.5px solid #F3F0E4;color:#F3F0E4}.btn-ol:hover{background:#F3F0E4;color:var(--ink)}
-@media (max-width:1180px){.apps{grid-template-columns:repeat(2,minmax(0,1fr))}.app-k{grid-column:1/-1;min-height:0}}
+.app-g{background:var(--stage);border:1px solid var(--line)}
+.app-g p.desc{color:var(--mute)}
+.orbit{position:relative;height:110px}
+.orbit svg{position:absolute;inset:0;width:100%;height:100%}
+.osat{position:absolute;left:0;top:0;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:var(--y);box-shadow:0 0 0 1.5px var(--ink);offset-path:path("M 10 105 Q 200 -50 390 105");offset-distance:55%}
+.ome{position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);font-size:24px}
+@media (prefers-reduced-motion:no-preference){.motion-on .osat{animation:opass 7s linear infinite}}
+@keyframes opass{0%{offset-distance:0%;opacity:0}8%,92%{opacity:1}100%{offset-distance:100%;opacity:0}}
 .app{border-radius:28px;padding:40px;display:flex;flex-direction:column;gap:24px;min-height:560px;position:relative;overflow:hidden;transition:transform .4s cubic-bezier(.2,.8,.2,1);box-shadow:0 30px 60px -40px rgba(90,77,0,.4)}
 .app:hover{transform:translateY(-6px)}
 .app-c{background:var(--y);color:var(--ink)}
@@ -324,7 +331,7 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <section class="sec" id="apps">
 <div class="wrap">
 <div class="sec-head rv">
-<h2 class="display h2">Three apps.<br>All out.</h2>
+<h2 class="display h2">Four apps.<br>One on its way.</h2>
 <p class="sub">Built and maintained by one person. Each does a single job and stops there.</p>
 </div>
 <div class="apps">
@@ -387,6 +394,23 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <a class="btn btn-ol" href="https://theyellowapps.com/clean-em-all.html">What it does</a>
 </div>
 </article>
+
+<article class="app app-g rv">
+<div class="app-head">
+<img class="icon" src="img/greet-em-all.png" width="72" height="72" alt="Greet 'Em All icon">
+<div>
+<p class="status mono"><span class="dot"></span>Coming soon</p>
+<h3><a class="tlink" href="https://theyellowapps.com/greet-em-all.html">Greet 'Em All</a></h3>
+<p class="pkg mono">com.greetemall.app</p>
+</div>
+</div>
+<p class="desc">A Sentinel-2 satellite is about to pass over you. Find it in the sky, wave at it, and get the photo it took right above you — with a yellow circle on “You were here”.</p>
+<div class="orbit" aria-hidden="true"><svg viewBox="0 0 400 110" preserveAspectRatio="none"><path d="M 10 105 Q 200 -50 390 105" fill="none" stroke="#8C8775" stroke-width="2" stroke-dasharray="4 7"/></svg><span class="osat"></span><span class="ome">👋</span></div>
+<p class="fact">Free, no adverts, no account.</p>
+<div class="app-foot">
+<a class="btn btn-ok" href="https://theyellowapps.com/greet-em-all.html">What it does</a>
+</div>
+</article>
 </div>
 </div>
 </section>
@@ -403,7 +427,7 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <div class="feats">
 <article class="feat rv">
 <div class="stage" aria-hidden="true">
-<div class="stats"><p><b>1</b><span class="mono">developer</span></p><p><b>3</b><span class="mono">apps</span></p><p class="z"><b>0</b><span class="mono">adverts</span></p></div>
+<div class="stats"><p><b>1</b><span class="mono">developer</span></p><p><b>4</b><span class="mono">apps</span></p><p class="z"><b>0</b><span class="mono">adverts</span></p></div>
 </div>
 <span class="n mono">01</span>
 <h3>Small on purpose</h3>
@@ -427,11 +451,12 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <img src="img/convert-em-all.png" width="80" height="80" alt="">
 <img src="img/podcast-em-all.png" width="80" height="80" alt="">
 <img src="img/clean-em-all.png" width="80" height="80" alt="">
+<img src="img/greet-em-all.png" width="80" height="80" alt="">
 </div>
 </div>
 <span class="n mono">03</span>
 <h3>The 'Em All family</h3>
-<p>Each app takes one kind of job and handles all of it. Same rules, same care, same name at the end. Three so far.</p>
+<p>Each app takes one kind of job and handles all of it. Same rules, same care, same name at the end. Four so far.</p>
 </article>
 </div>
 <div class="paper rv">
@@ -452,7 +477,7 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <div class="rule rv">
 <span class="num">01</span>
 <h3>You pay for what costs money.</h3>
-<p>Convert 'Em All and Clean 'Em All work entirely on your phone, so they cost nothing to run and nothing to use. Podcast 'Em All calls a server every time, so it has a plan. Neither one is priced for the sake of it.</p>
+<p>Convert 'Em All, Clean 'Em All and Greet 'Em All run on your phone with no server of mine behind them, so they cost nothing to run and nothing to use. Podcast 'Em All calls a server every time, so it has a plan. Neither one is priced for the sake of it.</p>
 </div>
 <div class="rule rv">
 <span class="num">02</span>
@@ -476,6 +501,7 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
 <a href="https://theyellowapps.com/convert-em-all.html">Convert 'Em All</a>
 <a href="https://theyellowapps.com/podcast-em-all.html">Podcast 'Em All</a>
 <a href="https://theyellowapps.com/clean-em-all.html">Clean 'Em All</a>
+<a href="https://theyellowapps.com/greet-em-all.html">Greet 'Em All</a>
 <a href="https://theyellowapps.com/changelog.html">Changelog</a>
 <a href="mailto:help@theyellowapps.com">help@theyellowapps.com</a>
 <a href="privacy/">Privacy</a>
@@ -538,6 +564,12 @@ a{color:#0B0B0B}a:hover{color:#5A4D00}
       "position": 3,
       "url": "https://theyellowapps.com/clean-em-all.html",
       "name": "Clean 'Em All"
+     },
+     {
+      "@type": "ListItem",
+      "position": 4,
+      "url": "https://theyellowapps.com/greet-em-all.html",
+      "name": "Greet 'Em All"
      }
    ]
   }

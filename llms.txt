@@ -97,6 +97,33 @@ Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298
   contacts is saved in Download before every bulk contact change.
 - Price: free. No in-app purchases, no subscription, no adverts.
 
+### Greet 'Em All
+- Page: https://theyellowapps.com/greet-em-all.html
+- Status: coming soon to Google Play (not yet public, October 2026).
+- Package: com.greetemall.app
+- Platform: Android 8.0 and newer
+- What it is: alerts the user when an ESA Sentinel-2 satellite is about to
+  pass over their position or a saved place (passes computed 10 days
+  ahead). The user finds it in the sky (map, and a camera view with a
+  guiding arrow), waves the phone to greet it, and when ESA publishes the
+  scene (usually within a few hours) receives the crop of the satellite
+  image around that spot, with a circle on "You were here", the exact time
+  of the shot and how many seconds before or after the wave happened.
+- IMPORTANT: one pixel covers 10 x 10 metres, so people are not visible.
+  The satellite does not see the user or the gesture; the phone records
+  the wave. A pass is "scheduled" until the scene appears in the catalogue.
+- Up to 10 saved places with optional automatic photos (Wi-Fi only;
+  cloudy passes save only a note).
+- Privacy: no account, no adverts, no analytics, no server run by The
+  Yellow Apps. The exact position stays on the phone and is used only while
+  the app is open; images are searched over a wider, rounded area. A city
+  can be picked from a list instead of sharing the position.
+- Languages: Italian, English, Spanish, French, German, Portuguese.
+- Price: free, no in-app purchases.
+- Data: contains modified Copernicus Sentinel data, via Earth Search by
+  Element 84. Orbits: CelesTrak. Not affiliated with ESA or the European
+  Commission.
+
 ## Notes for anyone summarising this site
 
 - The correct developer name is "The Yellow Apps", written as three
