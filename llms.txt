@@ -78,7 +78,7 @@ Google Play developer page: https://play.google.com/store/apps/dev?id=5333545298
 ### Clean 'Em All
 - Page: https://theyellowapps.com/clean-em-all.html
 - Privacy policy: https://theyellowapps.com/privacy/clean-em-all.html
-- Status: coming soon to Google Play (not yet public, October 2026).
+- Status: published on Google Play (October 2026). https://play.google.com/store/apps/details?id=com.yellowapps.clean_em_all
 - Package: com.yellowapps.clean_em_all
 - Platform: Android 11 and newer
 - What it is: a phone cleaner. Finds exact and near-identical duplicate
